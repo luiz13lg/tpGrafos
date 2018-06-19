@@ -41,6 +41,8 @@ public class View extends javax.swing.JFrame {
     MatrizAdjacencia matriz = new MatrizAdjacencia();
     ListaAdjacencia listaAdjacencia = new ListaAdjacencia();
     
+    int nVert;
+    int grafoMatriz[][];
     Vertice lista[];
     
     /** Creates new form View */
@@ -144,12 +146,13 @@ public class View extends javax.swing.JFrame {
         
         if (result == javax.swing.JFileChooser.APPROVE_OPTION) {
             matriz.inicia(br);                              //iniciando grafo em modo matriz
+            grafoMatriz = matriz.getMatriz();
             listaAdjacencia.iniciaListaAdjacencia(br1);     //iniciando grafo em modo lista adjacencia
             lista = listaAdjacencia.getListaAdj();
             
             try {
                 Integer.parseInt(br2.readLine());
-                int nVert =  Integer.parseInt(br2.readLine());
+                nVert =  Integer.parseInt(br2.readLine());
 
                 this.graph = new Graph(nVert); ///desenho
 
@@ -213,7 +216,7 @@ public class View extends javax.swing.JFrame {
 
     private void componentesConexas_MenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_componentesConexas_MenuActionPerformed
         DFS dfs = new DFS();
-        dfs.conexo(lista);
+        dfs.conexoMatriz(grafoMatriz,nVert);
         
 //        System.out.println(dfs.getResultado());
         
@@ -222,7 +225,7 @@ public class View extends javax.swing.JFrame {
 
         RainbowScale rbS = new RainbowScale();
         for (int i = 0; i < lista.length; i++) {
- //           System.out.println("Vertice: " + i + " Compoente: " + comp[i]);
+//            System.out.println("Vertice: " + i + " Compoente: " + comp[i]);
             this.graph.getVertex().get(i).setColor(rbS.getColor(comp[i] * compStep));
         }
         this.view.cleanImage();
