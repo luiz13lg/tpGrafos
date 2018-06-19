@@ -145,7 +145,6 @@ public class View extends javax.swing.JFrame {
             listaAdjacencia.iniciaListaAdjacencia(br1);     //iniciando grafo em modo lista adjacencia
    
             try {
-                //le numero de vertices
                 Integer.parseInt(br2.readLine());
                 int nVert =  Integer.parseInt(br2.readLine());
 

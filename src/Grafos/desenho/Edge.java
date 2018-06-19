@@ -116,12 +116,12 @@ public class Edge {
         Point pb = new Point(Math.round(-sen * -size) + (transX), Math.round(cos * -size) + (transY));
         Point pc = new Point(Math.round(cos * size) + (transX), Math.round(sen * size) + (transY));
 
-        g2.drawLine(pa.x, pa.y, pc.x, pc.y);
-        g2.drawLine(pb.x, pb.y, pc.x, pc.y);
+        //g2.drawLine(pa.x, pa.y, pc.x, pc.y);
+        //g2.drawLine(pb.x, pb.y, pc.x, pc.y);
 
-        g2.setFont(new Font("Verdana", Font.BOLD, 10));
+        g2.setFont(new Font("Verdana", Font.BOLD, 11));
         java.awt.FontMetrics metrics = g2.getFontMetrics(g2.getFont());
-        g2.drawString("T", pc.x, pc.y);
+        //g2.drawString("T", pc.x, pc.y);
     }
 
     public Boolean isDirected() {

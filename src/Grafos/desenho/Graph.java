@@ -32,7 +32,7 @@ public class Graph {
 //            }
             this.vertex.add(v);
         }
-        computeCircledPosition(150);
+        computeCircledPosition(150);    //desenhando o circulo
     }
 
     public void addVertex(Vertex v){
