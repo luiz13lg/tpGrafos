@@ -4,7 +4,6 @@
  */
 package Grafos.desenho;
 
-import Grafos.Grafo;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -64,11 +63,11 @@ public class Edge {
                     6, 14);
 
         }
-        if (Grafo.isPonderado()) {
-            drawText(g2, new Point((int) source.getX(), (int) source.getY()),
-                    new Point((int) target.getX(), (int) target.getY()),
-                    String.valueOf(peso), 70);
-        }
+        
+        drawText(g2, new Point((int) source.getX(), (int) source.getY()),   //peso
+        new Point((int) target.getX(), (int) target.getY()),                //
+        String.valueOf(peso), 70);                                          //
+        
         g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
     }
 

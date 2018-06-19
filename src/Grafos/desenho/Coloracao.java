@@ -3,7 +3,9 @@
  * and open the template in the editor.
  */
 
-package Grafos;
+package Grafos.desenho;
+
+import Grafos.ListaAdjacencia;
 
 /**
  *

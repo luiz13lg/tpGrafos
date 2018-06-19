@@ -10,11 +10,8 @@
  */
 package Grafos.desenho;
 
-import Grafos.Coloracao;
-import Grafos.ComponentesConexas;
-import Grafos.Grafo;
-import Grafos.ListaAdjacencia_1;
-import Grafos.MatrizAdjacencia_1;
+import Grafos.ListaAdjacencia;
+import Grafos.MatrizAdjacencia;
 import Grafos.desenho.color.RainbowScale;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -39,8 +36,8 @@ import javax.swing.JPanel;
  * @author Danilo Medeiros Eler
  */
 public class View extends javax.swing.JFrame {
-    MatrizAdjacencia_1 matriz = new MatrizAdjacencia_1();
-    ListaAdjacencia_1 listaAdjacencia = new ListaAdjacencia_1();
+    MatrizAdjacencia matriz = new MatrizAdjacencia();
+    ListaAdjacencia listaAdjacencia = new ListaAdjacencia();
     /** Creates new form View */
     public View() {
         this.view = new ViewPanel();
@@ -211,24 +208,24 @@ public class View extends javax.swing.JFrame {
     private void componentesConexas_MenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_componentesConexas_MenuActionPerformed
         // TODO add your handling code here:
         
-        ComponentesConexas componentesConexas = new ComponentesConexas();
-        componentesConexas.execute(grafo);
-        int comp[] = componentesConexas.getComponentes();
-        int numComp = componentesConexas.getNumComponentes();
-        int compStep = 255 / numComp;
-        RainbowScale rbS = new RainbowScale();
-        for (int i = 0; i < comp.length; i++) {
-            System.out.println("Vertice: " + i + " Compoente: " + comp[i]);
-            this.graph.getVertex().get(i).setColor(rbS.getColor(comp[i] * compStep));
-        }
-        this.view.cleanImage();
-        this.view.repaint();
+//        ComponentesConexas componentesConexas = new ComponentesConexas();
+//        componentesConexas.execute(grafo);
+//        int comp[] = componentesConexas.getComponentes();
+//        int numComp = componentesConexas.getNumComponentes();
+//        int compStep = 255 / numComp;
+//        RainbowScale rbS = new RainbowScale();
+//        for (int i = 0; i < comp.length; i++) {
+//            System.out.println("Vertice: " + i + " Compoente: " + comp[i]);
+//            this.graph.getVertex().get(i).setColor(rbS.getColor(comp[i] * compStep));
+//        }
+//        this.view.cleanImage();
+//        this.view.repaint();
     }//GEN-LAST:event_componentesConexas_MenuActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         Coloracao coloracao = new Coloracao();
-        coloracao.execute(grafo);
+        //coloracao.execute(grafo);
         int cores[] = coloracao.getCores();
         int nCores = coloracao.getNumCores();
         
@@ -402,7 +399,6 @@ public class View extends javax.swing.JFrame {
     }
     private ViewPanel view;
     private Graph graph;
-    private Grafo grafo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu algoritmos_Menu;
     private javax.swing.JMenuItem carregarGrafo_Menu;
