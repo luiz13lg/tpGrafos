@@ -12,6 +12,8 @@ package Grafos.desenho;
 
 import Grafos.ListaAdjacencia;
 import Grafos.MatrizAdjacencia;
+import Grafos.Vertice;
+import Grafos.classe.DFS;
 import Grafos.desenho.color.RainbowScale;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -38,6 +40,9 @@ import javax.swing.JPanel;
 public class View extends javax.swing.JFrame {
     MatrizAdjacencia matriz = new MatrizAdjacencia();
     ListaAdjacencia listaAdjacencia = new ListaAdjacencia();
+    
+    Vertice lista[];
+    
     /** Creates new form View */
     public View() {
         this.view = new ViewPanel();
@@ -140,7 +145,8 @@ public class View extends javax.swing.JFrame {
         if (result == javax.swing.JFileChooser.APPROVE_OPTION) {
             matriz.inicia(br);                              //iniciando grafo em modo matriz
             listaAdjacencia.iniciaListaAdjacencia(br1);     //iniciando grafo em modo lista adjacencia
-   
+            lista = listaAdjacencia.getListaAdj();
+            
             try {
                 Integer.parseInt(br2.readLine());
                 int nVert =  Integer.parseInt(br2.readLine());
@@ -206,20 +212,21 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_salvarImagem_MenuActionPerformed
 
     private void componentesConexas_MenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_componentesConexas_MenuActionPerformed
-        // TODO add your handling code here:
+        DFS dfs = new DFS();
+        dfs.conexo(lista);
         
-//        ComponentesConexas componentesConexas = new ComponentesConexas();
-//        componentesConexas.execute(grafo);
-//        int comp[] = componentesConexas.getComponentes();
-//        int numComp = componentesConexas.getNumComponentes();
-//        int compStep = 255 / numComp;
-//        RainbowScale rbS = new RainbowScale();
-//        for (int i = 0; i < comp.length; i++) {
-//            System.out.println("Vertice: " + i + " Compoente: " + comp[i]);
-//            this.graph.getVertex().get(i).setColor(rbS.getColor(comp[i] * compStep));
-//        }
-//        this.view.cleanImage();
-//        this.view.repaint();
+//        System.out.println(dfs.getResultado());
+        
+        int comp[] = dfs.getComponentes();
+        int compStep = 255 / lista.length;
+
+        RainbowScale rbS = new RainbowScale();
+        for (int i = 0; i < lista.length; i++) {
+ //           System.out.println("Vertice: " + i + " Compoente: " + comp[i]);
+            this.graph.getVertex().get(i).setColor(rbS.getColor(comp[i] * compStep));
+        }
+        this.view.cleanImage();
+        this.view.repaint();
     }//GEN-LAST:event_componentesConexas_MenuActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

@@ -23,7 +23,7 @@ public class DFS {
     private int predecessor[];
     
     private int componente []; //para detectar componentes distintos no grafo
-        int componenteAtual; //para atualizar o valor do componente
+    private int componenteAtual; //para atualizar o valor do componente
         
     private String impressao = "";   //variavel para exibir resultados    
     
@@ -73,8 +73,10 @@ public class DFS {
             impressao = "O grafo é conexo!";
         else {
             impressao += "O grafo não é conexo! \n_____________________\n\n";
+            componente = new int[grafo.length];
             for(Vertice vert : grafo){
                 impressao += "Vertice[" + vert.getNumero() + "]: Componente: " + vert.getComponente() + "\n";
+                componente[vert.getNumero()] = vert.getComponente();
             }
         }
     }
@@ -247,5 +249,13 @@ public class DFS {
     
     public String getResultado (){
         return impressao;
+    }
+    
+    public int getQuantComponentes(){
+        return componenteAtual;
+    }
+    
+    public int[] getComponentes(){
+        return componente;
     }
 }
