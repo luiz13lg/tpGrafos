@@ -76,6 +76,8 @@ public class View extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        restaurar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -132,6 +134,15 @@ public class View extends javax.swing.JFrame {
             }
         });
         algoritmos_Menu.add(jMenuItem3);
+        algoritmos_Menu.add(jSeparator1);
+
+        restaurar.setText("Restaurar Grafo");
+        restaurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                restaurarActionPerformed(evt);
+            }
+        });
+        algoritmos_Menu.add(restaurar);
 
         jMenuBar1.add(algoritmos_Menu);
 
@@ -196,16 +207,9 @@ public class View extends javax.swing.JFrame {
                     
 //                    this.grafo.addAresta(vIni, vFim); //estrutura de dados
                     Edge e = new Edge(vS, vT, vPeso); //desenho
-                    //Exemplo de seleção de aresta
-//                    if (vIni % 2 == 0){
-////                        e.setSelected(true);                        
-//                    }
-                    
                     this.graph.addEdge(e);    //desenho
                 }
-
                 this.view.setGraph(graph);
-
             } catch (IOException ex) {
                 Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -308,13 +312,15 @@ public class View extends javax.swing.JFrame {
             vertices = bfs.getVertices();
         }
         
-        for (int i = 0; i < nVert; i++)                                 //pintando todos vertices de preto
+        for (int i = 0; i < nVert; i++){                                 //pintando todos vertices de preto
             this.graph.getVertex().get(i).setColor(rbS.getColor(0));    //
-        
+            this.graph.getVertex().get(i).setSelected(false);           //
+        }    
         if(vertices.get(0) != -1)
-            for (int i = 0; i < vertices.size(); i++)                                           //destacando
-                this.graph.getVertex().get(vertices.get(i)).setColor(rbS.returnVermelho());     //o caminho
-        
+            for (int i = 0; i < vertices.size(); i++){                                      //destacando
+                this.graph.getVertex().get(vertices.get(i)).setColor(rbS.returnVermelho()); //o caminho
+                this.graph.getVertex().get(vertices.get(i)).setSelected(true);              //                
+            }
         this.view.cleanImage();
         this.view.repaint();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
@@ -322,17 +328,12 @@ public class View extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         ArrayList <String> auxiliar;
         Vertice transposto [];// = new Vertice [nVert];
-
 //        if(grafoDigrafo == 1){                                  //iniciando o grafo transposto
-            
             transposto = listaAdjacencia.iniciaTransposto(lista, nVert);
-            
             lista = transposto;                                         //setando a lista transposta
             grafoMatriz = matriz.converteListaEmMatriz(lista, nVert);   //setando a matriz transposta 
 //        }                                                             
-        
-this.graph = new Graph(nVert); ///desenho
-
+        this.graph = new Graph(nVert); ///desenho
         for(Vertice vert : transposto){
             auxiliar = vert.getAdjacencia();
             Vertex vS = this.graph.getVertex().get(vert.getNumero());
@@ -347,7 +348,31 @@ this.graph = new Graph(nVert); ///desenho
             }
         }
         this.view.setGraph(graph);
+        this.view.cleanImage();
+        this.view.repaint();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void restaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurarActionPerformed
+        ArrayList <String> auxiliar;
+        this.graph = new Graph(nVert); ///desenho
+        
+        for(Vertice vert : lista){
+            auxiliar = vert.getAdjacencia();
+            Vertex vS = this.graph.getVertex().get(vert.getNumero());
+            for(String aux : auxiliar){
+                String valorAdj[] = aux.split(" ");
+                Vertex vT = this.graph.getVertex().get(Integer.parseInt(valorAdj[0]));
+//                System.out.println("vs ->"+vert.getNumero());;
+//                System.out.println("vT ->"+Integer.parseInt(aux)+"\n");
+                Edge e = new Edge(vS ,vT , Integer.parseInt(valorAdj[1]) //peso da aresta//
+                    ); //desenho
+                this.graph.addEdge(e);    //desenho
+            }
+        }
+        this.view.setGraph(graph);
+        this.view.cleanImage();
+        this.view.repaint();
+    }//GEN-LAST:event_restaurarActionPerformed
 
     public class ViewPanel extends JPanel {
 
@@ -516,7 +541,9 @@ this.graph = new Graph(nVert); ///desenho
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu opcoes_Menu;
+    private javax.swing.JMenuItem restaurar;
     private javax.swing.JMenuItem salvarImagem_Menu;
     // End of variables declaration//GEN-END:variables
 }
