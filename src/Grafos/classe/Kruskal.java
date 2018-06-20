@@ -63,11 +63,12 @@ public class Kruskal{
                 aux1++;
             }
         }
-        System.out.println("AQUIIIIIIII"+conjuntoArestas[aux1].getAdj().getNumero());
+        System.out.println("AQUI: "+conjuntoArestas[0].getAdj().getNumero() + "Peso" + conjuntoArestas[0].getPeso());
         bubbleSortClassico(conjuntoArestas);
-//        for(int i = 0; i < conjuntoArestas.length; i++){
-//            System.out.println("Vertice: "+ conjuntoArestas[i].getNumero()+" Adj: "+conjuntoArestas[i].getAdj().getNumero());
-//        }
+       for(int i = 0; i < conjuntoArestas.length; i++){
+            System.out.println("Vertice: "+ conjuntoArestas[i].getNumero()+" Adj: "+conjuntoArestas[i].getAdj().getNumero());
+       }
+      System.out.println("fim");
 
     }
     
@@ -78,11 +79,20 @@ public class Kruskal{
             for (int i = 0; i < n - j - 1; i++) {
                 if (vetor[i].getPeso() > vetor[i + 1].getPeso()) { //compara todas as posições do vetor, se sucessor menor, troca de posição
                     aux = vetor[i];
-                    vetor[i] = vetor[i + 1];
-                    vetor[i + 1] = aux;
+                    //vetor[i] = vetor[i + 1];
+                    //vetor[i + 1] = aux;
+                    
+                    vetor[i].setNumero(vetor[i+1].getNumero());
+                    vetor[i].setPeso(vetor[i+1].getPeso());
+                    vetor[i].setAdj(vetor[i+1].getAdj());
+                    
+                    vetor[i+1].setNumero(aux.getNumero());
+                    vetor[i+1].setPeso(aux.getPeso());
+                    vetor[i+1].setAdj(aux.getAdj());
                 }
             }
         }
+        System.out.println("Terminou de ordenar");
     }
     
     private int pertenceArvore(Vertice arvore, int vertice){
