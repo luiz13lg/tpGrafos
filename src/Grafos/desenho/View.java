@@ -18,6 +18,7 @@ import Grafos.aplicacao.Composicao;
 import Grafos.classe.Coloracao;
 import Grafos.classe.DFS;
 import Grafos.classe.BFS;
+import Grafos.classe.Kruskal;
 import Grafos.desenho.color.GrayScale;
 import Grafos.desenho.color.RainbowScale;
 import java.awt.Color;
@@ -274,6 +275,9 @@ public class View extends javax.swing.JFrame {
             
             grafoMatriz = matriz.getMatriz();
             lista = listaAdjacencia.getListaAdj();
+            
+            Kruskal ks = new Kruskal(lista);
+            ks.AGM_Kruskal();
             
             try {
                 grafoDigrafo = Integer.parseInt(br2.readLine());
