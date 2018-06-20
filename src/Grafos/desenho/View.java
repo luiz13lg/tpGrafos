@@ -76,6 +76,7 @@ public class View extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         restaurar = new javax.swing.JMenuItem();
 
@@ -146,6 +147,14 @@ public class View extends javax.swing.JFrame {
 
         jMenuBar1.add(algoritmos_Menu);
 
+        jMenu1.setText("Aplicacao");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -169,7 +178,7 @@ public class View extends javax.swing.JFrame {
         int result = fc.showOpenDialog(getParent());                    //
         String arquivo = fc.getSelectedFile().getAbsolutePath();        //
 
-        BufferedReader br = null, br1 = null, br2 = null, br3 = null;   //arquivo
+        BufferedReader br = null, br1 = null, br2 = null;   //arquivo
         try {                                                       //carregando arquivos
             br = new BufferedReader(new FileReader(arquivo));       //matriz
             br1 = new BufferedReader(new FileReader(arquivo));      //lista
@@ -232,7 +241,7 @@ public class View extends javax.swing.JFrame {
         JFileChooser dialog = new JFileChooser();
         dialog.setMultiSelectionEnabled(false);
         dialog.setDialogTitle("Save file");
-        dialog.setCurrentDirectory(new File("D:\\DANILO\\UNESP\\2017\\Aulas\\Grafos"));
+        dialog.setCurrentDirectory(new File("Área de Trabalho"));
         int result = dialog.showDialog(this, "Salvar");
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
@@ -265,8 +274,8 @@ public class View extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
          
           //se for grafo
-          Coloracao coloracao = new Coloracao();
-          coloracao.execute(lista);
+        Coloracao coloracao = new Coloracao();
+        coloracao.execute(lista);
         int cores[] = coloracao.getCores();
         int nCores = coloracao.getNumCores();
 //        
@@ -347,6 +356,8 @@ public class View extends javax.swing.JFrame {
                 this.graph.addEdge(e);    //desenho
             }
         }
+//        this.view.cleanImage();
+//        this.view.repaint();
         this.view.setGraph(graph);
         this.view.cleanImage();
         this.view.repaint();
@@ -373,6 +384,72 @@ public class View extends javax.swing.JFrame {
         this.view.cleanImage();
         this.view.repaint();
     }//GEN-LAST:event_restaurarActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+
+        BufferedReader br = null, br1 = null, br2 = null;   //arquivo
+        try {                                                       //carregando arquivos
+            br = new BufferedReader(new FileReader("C:\\Users\\Guilherme\\Documents\\NetBeansProjects\\tpgrafos\\grafolol.txt"));       //matriz
+            br1 = new BufferedReader(new FileReader("C:\\Users\\Guilherme\\Documents\\NetBeansProjects\\tpgrafos\\grafolol.txt"));      //lista
+            br2 = new BufferedReader(new FileReader("C:\\Users\\Guilherme\\Documents\\NetBeansProjects\\tpgrafos\\grafolol.txt"));      //desenho
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+            matriz.inicia(br);                              //iniciando grafo em modo matriz
+            listaAdjacencia.iniciaListaAdjacencia(br1);     //iniciando grafo em modo lista adjacencia
+            
+            grafoMatriz = matriz.getMatriz();
+            lista = listaAdjacencia.getListaAdj();
+            
+            try {
+                grafoDigrafo = Integer.parseInt(br2.readLine());
+                
+                nVert =  Integer.parseInt(br2.readLine());
+
+                this.graph = new Graph(nVert); ///desenho
+
+                //leitura das arestas
+                String line;
+                while ((line = br2.readLine()) != null && line.trim().length() > 0) {
+                    StringTokenizer t1 = new StringTokenizer(line, " ");
+
+                    int vIni = Integer.parseInt(t1.nextToken().trim()); //verticeInicial
+                    int vFim = Integer.parseInt(t1.nextToken().trim()); //verticeFinal
+                    int vPeso = Integer.parseInt(t1.nextToken().trim()); //peso do vertice
+                    
+                    Vertex vS = this.graph.getVertex().get(vIni);
+                    Vertex vT = this.graph.getVertex().get(vFim);
+                    
+//                    this.grafo.addAresta(vIni, vFim); //estrutura de dados
+                    Edge e = new Edge(vS, vT, vPeso); //desenho
+                    //Exemplo de seleção de aresta
+//                    if (vIni % 2 == 0){
+////                        e.setSelected(true);                        
+//                    }
+                    
+                    this.graph.addEdge(e);    //desenho
+                }
+
+                this.view.setGraph(graph);
+
+            } catch (IOException ex) {
+                Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                //fechar o arquivo
+                if (br != null) {
+                    try {
+                        br.close();
+                        br1.close();
+                        br2.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        
+    }//GEN-LAST:event_jMenu1ActionPerformed
 
     public class ViewPanel extends JPanel {
 
@@ -536,6 +613,7 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JMenu algoritmos_Menu;
     private javax.swing.JMenuItem carregarGrafo_Menu;
     private javax.swing.JMenuItem componentesConexas_Menu;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
