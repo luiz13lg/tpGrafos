@@ -13,6 +13,9 @@ package Grafos.desenho;
 import Grafos.ListaAdjacencia;
 import Grafos.MatrizAdjacencia;
 import Grafos.Vertice;
+import Grafos.aplicacao.Aplicacao;
+import Grafos.aplicacao.Campeao;
+import Grafos.aplicacao.Composicao;
 import Grafos.classe.Coloracao;
 import Grafos.classe.DFS;
 import Grafos.classe.BFS;
@@ -44,6 +47,7 @@ import javax.swing.JPanel;
 public class View extends javax.swing.JFrame {
     MatrizAdjacencia matriz = new MatrizAdjacencia();
     ListaAdjacencia listaAdjacencia = new ListaAdjacencia();
+    Composicao comp;
     
     int nVert;
     int grafoMatriz[][];
@@ -149,6 +153,15 @@ public class View extends javax.swing.JFrame {
         jMenuBar1.add(algoritmos_Menu);
 
         jMenu1.setText("Aplicacao");
+        jMenu1.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenu1MenuSelected(evt);
+            }
+        });
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenu1ActionPerformed(evt);
@@ -277,22 +290,24 @@ public class View extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
          
-          //se for grafo
-        Coloracao coloracao = new Coloracao();
-        coloracao.execute(lista);
-        int cores[] = coloracao.getCores();
-        int nCores = coloracao.getNumCores();
-//        
-        int coresStep = 255 / nCores;
-        RainbowScale rbS = new RainbowScale();
-        GrayScale gs = new GrayScale();
-        for (int i = 0; i < cores.length; i++) {
-            System.out.println("Vertice: " + i + " Cor: " + cores[i]);
-            this.graph.getVertex().get(i).setColor(rbS.getColor(cores[i] * coresStep));
-//            this.graph.getVertex().get(i).setColor(gs.getColor(cores[i] * coresStep));
-        }
-        this.view.cleanImage();
-        this.view.repaint();
+        if(grafoDigrafo == 0){//se for grafo
+            Coloracao coloracao = new Coloracao();
+            coloracao.execute(lista);
+            int cores[] = coloracao.getCores();
+            int nCores = coloracao.getNumCores();
+    //        
+            int coresStep = 255 / nCores;
+            RainbowScale rbS = new RainbowScale();
+            GrayScale gs = new GrayScale();
+            for (int i = 0; i < cores.length; i++) {
+                System.out.println("Vertice: " + i + " Cor: " + cores[i]);
+                this.graph.getVertex().get(i).setColor(rbS.getColor(cores[i] * coresStep));
+    //            this.graph.getVertex().get(i).setColor(gs.getColor(cores[i] * coresStep));
+            }
+            this.view.cleanImage();
+            this.view.repaint();
+        }else JOptionPane.showMessageDialog(null,"O algoritmo é reestrito à grafos não orientados");
+        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -365,7 +380,7 @@ public class View extends javax.swing.JFrame {
             this.view.setGraph(graph);
             this.view.cleanImage();
             this.view.repaint();
-        }
+        }else JOptionPane.showMessageDialog(null,"O algoritmo é reestrito à digrafos");
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void restaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurarActionPerformed
@@ -396,71 +411,186 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_restaurarActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-
-        BufferedReader br = null, br1 = null, br2 = null;   //arquivo
-        try {                                                       //carregando arquivos
-            br = new BufferedReader(new FileReader("C:\\Users\\Guilherme\\Documents\\NetBeansProjects\\tpgrafos\\grafolol.txt"));       //matriz
-            br1 = new BufferedReader(new FileReader("C:\\Users\\Guilherme\\Documents\\NetBeansProjects\\tpgrafos\\grafolol.txt"));      //lista
-            br2 = new BufferedReader(new FileReader("C:\\Users\\Guilherme\\Documents\\NetBeansProjects\\tpgrafos\\grafolol.txt"));      //desenho
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-            matriz.inicia(br);                              //iniciando grafo em modo matriz
-            listaAdjacencia.iniciaListaAdjacencia(br1);     //iniciando grafo em modo lista adjacencia
-            
-            grafoMatriz = matriz.getMatriz();
-            lista = listaAdjacencia.getListaAdj();
-            
-            try {
-                grafoDigrafo = Integer.parseInt(br2.readLine());
-                
-                nVert =  Integer.parseInt(br2.readLine());
-
-                this.graph = new Graph(nVert); ///desenho
-
-                //leitura das arestas
-                String line;
-                while ((line = br2.readLine()) != null && line.trim().length() > 0) {
-                    StringTokenizer t1 = new StringTokenizer(line, " ");
-
-                    int vIni = Integer.parseInt(t1.nextToken().trim()); //verticeInicial
-                    int vFim = Integer.parseInt(t1.nextToken().trim()); //verticeFinal
-                    int vPeso = Integer.parseInt(t1.nextToken().trim()); //peso do vertice
-                    
-                    Vertex vS = this.graph.getVertex().get(vIni);
-                    Vertex vT = this.graph.getVertex().get(vFim);
-                    
-//                    this.grafo.addAresta(vIni, vFim); //estrutura de dados
-                    Edge e = new Edge(vS, vT, vPeso); //desenho
-                    //Exemplo de seleção de aresta
-//                    if (vIni % 2 == 0){
-////                        e.setSelected(true);                        
-//                    }
-                    
-                    this.graph.addEdge(e);    //desenho
-                }
-
-                this.view.setGraph(graph);
-
-            } catch (IOException ex) {
-                Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                //fechar o arquivo
-                if (br != null) {
-                    try {
-                        br.close();
-                        br1.close();
-                        br2.close();
-                    } catch (IOException ex) {
-                        Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
+        //nao usado /// ignorar
         
     }//GEN-LAST:event_jMenu1ActionPerformed
 
+    private void jMenu1MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu1MenuSelected
+             
+        try {
+            comp = new Composicao();
+        } catch (IOException ex) {
+            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        BufferedReader br = null, br1 = null, br2 = null;   //arquivo
+        try {                                                  //carregando arquivos
+            br = new BufferedReader(new FileReader("grafolol.txt"));       //matriz
+            br1 = new BufferedReader(new FileReader("grafolol.txt"));      //lista
+            br2 = new BufferedReader(new FileReader("grafolol.txt"));      //desenho
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        matriz.inicia(br);                              //iniciando grafo em modo matriz
+        listaAdjacencia.iniciaListaAdjacencia(br1);     //iniciando grafo em modo lista adjacencia
+
+        grafoMatriz = matriz.getMatriz();
+        lista = listaAdjacencia.getListaAdj();
+
+        try {
+            grafoDigrafo = Integer.parseInt(br2.readLine());
+
+            nVert =  Integer.parseInt(br2.readLine());
+
+            this.graph = new Graph(nVert); ///desenho
+
+            //leitura das arestas
+            String line;
+            while ((line = br2.readLine()) != null && line.trim().length() > 0) {
+                StringTokenizer t1 = new StringTokenizer(line, " ");
+
+                int vIni = Integer.parseInt(t1.nextToken().trim());     //vertice Inicial
+                int vFim = Integer.parseInt(t1.nextToken().trim());     //vertice Final
+                int vPeso = Integer.parseInt(t1.nextToken().trim());    //peso do vertice
+
+                Vertex vS = this.graph.getVertex().get(vIni);
+                Vertex vT = this.graph.getVertex().get(vFim);           
+//                    this.grafo.addAresta(vIni, vFim); //estrutura de dados
+                Edge e = new Edge(vS, vT, vPeso); //desenho
+
+                if(grafoDigrafo == 0)       //desenhando setas ou não
+                    e.setDirected(false);   //
+
+                this.graph.addEdge(e);    //desenho
+            }
+            this.view.setGraph(graph);
+        } catch (IOException ex) {
+            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //fechar o arquivo
+            if (br != null) {
+                try {
+                    br.close();
+                    br1.close();
+                    br2.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
+        criarTimes();
+        String compTeamA = analisarComp(comp.getTeamA());
+        String compTeamB = analisarComp(comp.getTeamA());
+        System.out.println("Time A "+compTeamA);
+        System.out.println("Time B "+compTeamB);
+        
+       //analisar no grafo
+        
+//        Aplicacao aplicacao = new Aplicacao();
+//        aplicacao.setVisible(true);
+    }//GEN-LAST:event_jMenu1MenuSelected
+
+    private void criarTimes(){
+            Campeao[] TeamA = new Campeao[5];
+            Campeao[] TeamB = new Campeao[5];
+            Campeao campeao = null;
+            
+            do{
+                campeao = comp.buscarCampeao(JOptionPane.showInputDialog("Insira o Top Lane do Team A"));
+                if(campeao == null)JOptionPane.showMessageDialog(null,"Campeao nao encontrado");
+            }while(campeao==null);
+            TeamA[0] = campeao;
+            
+            do{
+                campeao = comp.buscarCampeao(JOptionPane.showInputDialog("Insira o Jungle Laner do Team A"));
+                if(campeao == null)JOptionPane.showMessageDialog(null,"Campeao nao encontrado");
+            }while(campeao==null);
+            TeamA[1] = campeao;
+            
+            do{
+                campeao = comp.buscarCampeao(JOptionPane.showInputDialog("Insira o Mid Lane do Team A"));
+                if(campeao == null)JOptionPane.showMessageDialog(null,"Campeao nao encontrado");
+            }while(campeao==null);
+            TeamA[2] = campeao;
+            
+            do{
+                campeao = comp.buscarCampeao(JOptionPane.showInputDialog("Insira o Bot Laner do Team A"));
+                if(campeao == null)JOptionPane.showMessageDialog(null,"Campeao nao encontrado");
+            }while(campeao==null);
+            TeamA[3] = campeao;
+            
+            do{
+                campeao = comp.buscarCampeao(JOptionPane.showInputDialog("Insira o Suporte do Team A"));
+                if(campeao == null)JOptionPane.showMessageDialog(null,"Campeao nao encontrado");
+            }while(campeao==null);
+            TeamA[4] = campeao;
+            
+            do{
+                campeao = comp.buscarCampeao(JOptionPane.showInputDialog("Insira o Top Lane do Team B"));
+                if(campeao == null)JOptionPane.showMessageDialog(null,"Campeao nao encontrado");
+            }while(campeao==null);
+            TeamB[0] = campeao;
+            
+            do{
+                campeao = comp.buscarCampeao(JOptionPane.showInputDialog("Insira o Jungle Laner do Team B"));
+                if(campeao == null)JOptionPane.showMessageDialog(null,"Campeao nao encontrado");
+            }while(campeao==null);
+            TeamB[1] = campeao;
+            
+            do{
+                campeao = comp.buscarCampeao(JOptionPane.showInputDialog("Insira o Mid Lane do Team B"));
+                if(campeao == null)JOptionPane.showMessageDialog(null,"Campeao nao encontrado");
+            }while(campeao==null);
+            TeamB[2] = campeao;
+            
+            do{
+                campeao = comp.buscarCampeao(JOptionPane.showInputDialog("Insira o Bot Laner do Team B"));
+                if(campeao == null)JOptionPane.showMessageDialog(null,"Campeao nao encontrado");
+            }while(campeao==null);
+            TeamB[3] = campeao;
+            
+            do{
+                campeao = comp.buscarCampeao(JOptionPane.showInputDialog("Insira o Suporte do Team B"));
+                if(campeao == null)JOptionPane.showMessageDialog(null,"Campeao nao encontrado");
+            }while(campeao==null);
+            TeamB[4] = campeao;
+            
+            comp.setTeamA(TeamA);
+            comp.setTeamB(TeamB);
+    }
+    
+    private String analisarComp(Campeao[] time){
+        int[] funcoes = new int[5];
+        int maior = 0;
+        int composicao = 0;
+        for(int i=0;i<funcoes.length;i++){
+            funcoes[i]=0;
+        }
+        for(int i=0;i<time.length;i++){
+            if(time[i].getFuncao().equals("dive"))funcoes[0]++;
+            if(time[i].getFuncao().equals("aoe"))funcoes[1]++;
+            if(time[i].getFuncao().equals("poke"))funcoes[2]++;
+            if(time[i].getFuncao().equals("split"))return "split";
+            if(time[i].getFuncao().equals("peel"))funcoes[4]++;
+        }
+        for(int i=0;i<funcoes.length;i++){
+            if(funcoes[i] > maior){
+                maior = funcoes[i];
+                composicao = i;
+            }
+        }
+        if(composicao == 0)return "dive";
+        if(composicao == 1)return "aoe";
+        if(composicao == 2)return "poke";
+        if(composicao == 4)return "peel";
+        return "nao possui sinergia";
+    }
+    
+    
+    
+    
     public class ViewPanel extends JPanel {
 
         public ViewPanel() {

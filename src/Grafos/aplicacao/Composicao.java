@@ -33,18 +33,6 @@ public class Composicao {
             addCampeao(valores[0],valores[1]);
         }
         br.close();
-        
-        br = new BufferedReader(new FileReader("grafolol.txt"));  
-        listaAdjacencia.iniciaListaAdjacencia(br);
-        lista = listaAdjacencia.getListaAdj();
-        
-        while(br.ready()){
-            String linha = br.readLine();  //leitura linha a linha da fonte
-            String[] valores = linha.split(",");
-            addCampeao(valores[0],valores[1]);
-        }
-    
-    
     }
 
     
@@ -80,7 +68,7 @@ public class Composicao {
     
     public Campeao buscarCampeao(String nome){
         for(int i=0;i<campeoes.size();i++){
-            if(campeoes.get(i).equals(nome.toLowerCase())){
+            if(campeoes.get(i).getNome().equals(nome.toLowerCase())){
                 return campeoes.get(i);
             }
         }
