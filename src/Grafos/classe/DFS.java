@@ -26,7 +26,8 @@ public class DFS {
     private int componenteAtual; //para atualizar o valor do componente
         
     private String impressao = "";   //variavel para exibir resultados    
-    private ArrayList <Integer> vertices = new ArrayList <Integer>();        //variavel para caminho u a v (interface gráfica)
+    private ArrayList <Integer> vertices = new ArrayList <Integer>();   //variavel para caminho...
+                                                                        //...u a v (interface gráfica)
 
     
     private void inicializa (Vertice grafo[], Vertice raiz){
@@ -232,7 +233,11 @@ public class DFS {
         if(resultados.size() > 0)
             for(int aux = resultados.size()-1 ; aux >= 0; aux--)
                 impressao += resultados.get(aux);
-        else impressao += "O Caminho não é possível! :(";
+        else{ 
+            impressao += "O Caminho não é possível! :(";
+            vertices.clear();   //zerando inserções
+            vertices.add(-1);   //
+        }
     }
     
     private void visitaCaminhoMatriz(int vert1, int vert2, int grafo[][], int ordemMatriz){

@@ -272,10 +272,8 @@ public class View extends javax.swing.JFrame {
         
         RainbowScale rbS = new RainbowScale();
         int comp[] = dfs.getComponentes();
-        int compStep = 255 / lista.length;
-        
-        String opt[] = {"DFS","BFS"};
 
+        String opt[] = {"DFS","BFS"};
         int busca = JOptionPane.showOptionDialog(null,
             "Escolha o tipo de BUSCA",
             "DFS x BFS",
@@ -288,17 +286,18 @@ public class View extends javax.swing.JFrame {
         if(busca == 0){         //DFS
             dfs.caminhoMatriz(vert1, vert2, grafoMatriz, nVert);
             vertices = dfs.getVertices();
-            System.out.println(dfs.getResultado());
+//            System.out.println(dfs.getResultado());
         } else{                 //BFS
             bfs.verificaCaminhoMatriz(vert1, vert2, grafoMatriz, nVert);
+            vertices = bfs.getVertices();
         }
         
         for (int i = 0; i < nVert; i++)                                 //pintando todos vertices de preto
             this.graph.getVertex().get(i).setColor(rbS.getColor(0));    //
         
-        for (int i = 0; i < vertices.size(); i++) {                                         //pintando apenas o caminho
-            this.graph.getVertex().get(vertices.get(i)).setColor(rbS.returnVermelho());     //
-        }
+        if(vertices.get(0) != -1)
+            for (int i = 0; i < vertices.size(); i++)                                           //destacando
+                this.graph.getVertex().get(vertices.get(i)).setColor(rbS.returnVermelho());     //o caminho
         
         this.view.cleanImage();
         this.view.repaint();
