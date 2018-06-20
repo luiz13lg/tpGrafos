@@ -16,6 +16,9 @@ public class BFS {
     private ArrayList <Vertice> fila = new ArrayList <Vertice>();
     String resultado = "";
     
+    private ArrayList <Integer> vertices = new ArrayList <Integer>();   //variavel para caminho...
+                                                                        //...u a v (interface gráfica)
+    
     public void addFila(Vertice vert){
         fila.add(vert);
     }
@@ -180,21 +183,30 @@ public class BFS {
                 }
             }
             if(x == vert2){
+                vertices.add(vert1);
                 impressaoAdjMatriz(vert2, predecessor); return;}
         }
         resultado += "O caminho não é possível! :(";
+        vertices.clear();   //zerando inserções
+        vertices.add(-1);   //
     }
     
     private void impressaoAdjMatriz(int vert2,int predecessor[]){
         ArrayList <String> result = new ArrayList <String>();
-        for(int aux = vert2; aux != -1; aux = predecessor[aux])
-            result.add("Vertice["+predecessor[aux]+"] >" + "Vertice[" +aux + "]\n");
+        for(int aux = vert2; aux != -1; aux = predecessor[aux]){
+            result.add("Vertice["+predecessor[aux]+"] >" + "Vertice[" + aux + "]\n");
+            vertices.add(aux);
+        }
         for(int aux = result.size()-2 ; aux >= 0 ; aux--)
             resultado += result.get(aux);
     }
     
     public String getResultado(){
         return resultado;
+    }
+    
+    public ArrayList getVertices(){
+        return vertices;
     }
     
 }

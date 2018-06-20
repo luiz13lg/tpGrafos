@@ -5,6 +5,8 @@
 
 package Grafos.desenho.color;
 
+import java.awt.Color;
+
 /**
  *
  * @author Danilo Medeiros Eler
@@ -269,6 +271,10 @@ public class RainbowScale extends ColorScale{
         colors[253] = new java.awt.Color(255, 251, 251);
         colors[254] = new java.awt.Color(255, 253, 253);
         colors[255] = new java.awt.Color(255, 255, 255);
+    }
+    
+    public Color returnVermelho(){
+        return Color.RED;
     }
 
     public String getName() {
