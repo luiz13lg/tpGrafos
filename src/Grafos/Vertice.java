@@ -15,7 +15,7 @@ public class Vertice {
     private int distancia;              //distancia ate a raiz      //para BFS
     private int tempoInicial;                   //tempo de descoberta       //para DFS
     private int tempoFinal;                     //tempo de descoberta       //para DFS
-    private ArrayList <String> adjacencia = new ArrayList <String>();    //vertices adjacentes e seus pesos (para lista de adj)
+    private ArrayList <String> adjacencia = new ArrayList <String>();    //vertices adjacentes e seus pesos (para lista de adj) //coloracao
     private int peso; //kruskal
     private Vertice adj; //kruskal
     private ArrayList<Integer> arvoreKrus = new ArrayList <Integer>(); //para kruskal

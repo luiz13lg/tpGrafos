@@ -13,7 +13,9 @@ package Grafos.desenho;
 import Grafos.ListaAdjacencia;
 import Grafos.MatrizAdjacencia;
 import Grafos.Vertice;
+import Grafos.classe.Coloracao;
 import Grafos.classe.DFS;
+import Grafos.desenho.color.GrayScale;
 import Grafos.desenho.color.RainbowScale;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -230,19 +232,20 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_componentesConexas_MenuActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        Coloracao coloracao = new Coloracao();
-        //coloracao.execute(grafo);
+         
+          //se for grafo
+          Coloracao coloracao = new Coloracao();
+          coloracao.execute(lista);
         int cores[] = coloracao.getCores();
         int nCores = coloracao.getNumCores();
-        
+//        
         int coresStep = 255 / nCores;
         RainbowScale rbS = new RainbowScale();
-        //GrayScale gs = new GrayScale();
+        GrayScale gs = new GrayScale();
         for (int i = 0; i < cores.length; i++) {
             System.out.println("Vertice: " + i + " Cor: " + cores[i]);
             this.graph.getVertex().get(i).setColor(rbS.getColor(cores[i] * coresStep));
-            //this.graph.getVertex().get(i).setColor(gs.getColor(cores[i] * coresStep));
+            this.graph.getVertex().get(i).setColor(gs.getColor(cores[i] * coresStep));
         }
         this.view.cleanImage();
         this.view.repaint();
