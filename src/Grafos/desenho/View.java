@@ -207,15 +207,18 @@ public class View extends javax.swing.JFrame {
                 while ((line = br2.readLine()) != null && line.trim().length() > 0) {
                     StringTokenizer t1 = new StringTokenizer(line, " ");
 
-                    int vIni = Integer.parseInt(t1.nextToken().trim()); //verticeInicial
-                    int vFim = Integer.parseInt(t1.nextToken().trim()); //verticeFinal
-                    int vPeso = Integer.parseInt(t1.nextToken().trim()); //peso do vertice
+                    int vIni = Integer.parseInt(t1.nextToken().trim());     //vertice Inicial
+                    int vFim = Integer.parseInt(t1.nextToken().trim());     //vertice Final
+                    int vPeso = Integer.parseInt(t1.nextToken().trim());    //peso do vertice
                     
                     Vertex vS = this.graph.getVertex().get(vIni);
-                    Vertex vT = this.graph.getVertex().get(vFim);
-                    
+                    Vertex vT = this.graph.getVertex().get(vFim);           
 //                    this.grafo.addAresta(vIni, vFim); //estrutura de dados
                     Edge e = new Edge(vS, vT, vPeso); //desenho
+                    
+                    if(grafoDigrafo == 0)       //desenhando setas ou não
+                        e.setDirected(false);   //
+                    
                     this.graph.addEdge(e);    //desenho
                 }
                 this.view.setGraph(graph);
