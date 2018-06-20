@@ -35,18 +35,23 @@ public class Coloracao {
     
     private int corApropriada(Vertice[] lista, int vert){
         int cor = -1;    
-        for(int i=0;i<lista[vert].getAdjacencia().size();i++){
+        boolean flag = false;
+        int i=0;
+        while(!flag){
             cor++;
             while(i <lista[vert].getAdjacencia().size() && cores[Integer.parseInt(String.valueOf(lista[vert].getAdjacencia().get(i).charAt(0)))] != cor)
                 i++;
-        }      
+            if(i == lista[vert].getAdjacencia().size())flag = true;
+            
+            
+        }
         return cor;
     }
 
     private int verticeMaiorGrau(Vertice[] lista){
         int vert = 0;
         int maior = Integer.MIN_VALUE;
-        for (int i=0; i<lista[i].getAdjacencia().size(); i++){
+        for (int i=0; i<lista.length; i++){
             if(lista[i].getAdjacencia().size()>maior){
                 maior = lista[i].getAdjacencia().size();
                 vert = i;

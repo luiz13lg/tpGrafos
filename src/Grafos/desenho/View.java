@@ -346,6 +346,8 @@ this.graph = new Graph(nVert); ///desenho
                 this.graph.addEdge(e);    //desenho
             }
         }
+//        this.view.cleanImage();
+//        this.view.repaint();
         this.view.setGraph(graph);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
