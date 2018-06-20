@@ -13,7 +13,6 @@ package Grafos.desenho;
 import Grafos.ListaAdjacencia;
 import Grafos.MatrizAdjacencia;
 import Grafos.Vertice;
-import Grafos.aplicacao.Aplicacao;
 import Grafos.aplicacao.Campeao;
 import Grafos.aplicacao.Composicao;
 import Grafos.classe.Coloracao;
@@ -71,6 +70,9 @@ public class View extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane(this.view);
+        CompB = new javax.swing.JLabel();
+        CompA = new javax.swing.JLabel();
+        Resultado = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         opcoes_Menu = new javax.swing.JMenu();
         carregarGrafo_Menu = new javax.swing.JMenuItem();
@@ -86,6 +88,15 @@ public class View extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+
+        CompB.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        CompB.setForeground(new java.awt.Color(255, 0, 51));
+
+        CompA.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        CompA.setForeground(new java.awt.Color(51, 102, 255));
+
+        Resultado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Resultado.setForeground(new java.awt.Color(102, 255, 102));
 
         opcoes_Menu.setText("Opções");
 
@@ -176,11 +187,24 @@ public class View extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addComponent(CompA, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(CompB, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
+                .addComponent(Resultado, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(73, Short.MAX_VALUE)
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CompB, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CompA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Resultado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -483,8 +507,9 @@ public class View extends javax.swing.JFrame {
         criarTimes();
         String compTeamA = analisarComp(comp.getTeamA());
         String compTeamB = analisarComp(comp.getTeamA());
-        System.out.println("Time A "+compTeamA);
-        System.out.println("Time B "+compTeamB);
+        CompA.setText("Time A "+compTeamA);
+        CompB.setText("Time B "+compTeamB);
+        
         
        //analisar no grafo
         
@@ -750,6 +775,9 @@ public class View extends javax.swing.JFrame {
     private ViewPanel view;
     private Graph graph;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel CompA;
+    private javax.swing.JLabel CompB;
+    private javax.swing.JLabel Resultado;
     private javax.swing.JMenu algoritmos_Menu;
     private javax.swing.JMenuItem carregarGrafo_Menu;
     private javax.swing.JMenuItem componentesConexas_Menu;
