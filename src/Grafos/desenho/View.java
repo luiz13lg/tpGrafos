@@ -47,6 +47,7 @@ public class View extends javax.swing.JFrame {
     
     int nVert;
     int grafoMatriz[][];
+    int grafoDigrafo;
     Vertice lista[];
     
     /** Creates new form View */
@@ -74,6 +75,7 @@ public class View extends javax.swing.JFrame {
         componentesConexas_Menu = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -123,6 +125,14 @@ public class View extends javax.swing.JFrame {
         });
         algoritmos_Menu.add(jMenuItem2);
 
+        jMenuItem3.setText("Transposto");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        algoritmos_Menu.add(jMenuItem3);
+
         jMenuBar1.add(algoritmos_Menu);
 
         setJMenuBar(jMenuBar1);
@@ -148,23 +158,26 @@ public class View extends javax.swing.JFrame {
         int result = fc.showOpenDialog(getParent());                    //
         String arquivo = fc.getSelectedFile().getAbsolutePath();        //
 
-        BufferedReader br = null, br1 = null, br2 = null;   //arquivo
-        try {
-            br = new BufferedReader(new FileReader(arquivo));       //carregando arquivos
-            br1 = new BufferedReader(new FileReader(arquivo));      //
-            br2 = new BufferedReader(new FileReader(arquivo));      //
+        BufferedReader br = null, br1 = null, br2 = null, br3 = null;   //arquivo
+        try {                                                       //carregando arquivos
+            br = new BufferedReader(new FileReader(arquivo));       //matriz
+            br1 = new BufferedReader(new FileReader(arquivo));      //lista
+            br2 = new BufferedReader(new FileReader(arquivo));      //desenho
+            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         if (result == javax.swing.JFileChooser.APPROVE_OPTION) {
             matriz.inicia(br);                              //iniciando grafo em modo matriz
-            grafoMatriz = matriz.getMatriz();
             listaAdjacencia.iniciaListaAdjacencia(br1);     //iniciando grafo em modo lista adjacencia
+            
+            grafoMatriz = matriz.getMatriz();
             lista = listaAdjacencia.getListaAdj();
             
             try {
-                Integer.parseInt(br2.readLine());
+                grafoDigrafo = Integer.parseInt(br2.readLine());
+                
                 nVert =  Integer.parseInt(br2.readLine());
 
                 this.graph = new Graph(nVert); ///desenho
@@ -184,9 +197,9 @@ public class View extends javax.swing.JFrame {
 //                    this.grafo.addAresta(vIni, vFim); //estrutura de dados
                     Edge e = new Edge(vS, vT, vPeso); //desenho
                     //Exemplo de seleção de aresta
-                    if (vIni % 2 == 0){
-//                        e.setSelected(true);                        
-                    }
+//                    if (vIni % 2 == 0){
+////                        e.setSelected(true);                        
+//                    }
                     
                     this.graph.addEdge(e);    //desenho
                 }
@@ -259,7 +272,7 @@ public class View extends javax.swing.JFrame {
         for (int i = 0; i < cores.length; i++) {
             System.out.println("Vertice: " + i + " Cor: " + cores[i]);
             this.graph.getVertex().get(i).setColor(rbS.getColor(cores[i] * coresStep));
-            this.graph.getVertex().get(i).setColor(gs.getColor(cores[i] * coresStep));
+//            this.graph.getVertex().get(i).setColor(gs.getColor(cores[i] * coresStep));
         }
         this.view.cleanImage();
         this.view.repaint();
@@ -305,6 +318,36 @@ public class View extends javax.swing.JFrame {
         this.view.cleanImage();
         this.view.repaint();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        ArrayList <String> auxiliar;
+        Vertice transposto [];// = new Vertice [nVert];
+
+//        if(grafoDigrafo == 1){                                  //iniciando o grafo transposto
+            
+            transposto = listaAdjacencia.iniciaTransposto(lista, nVert);
+            
+            lista = transposto;                                         //setando a lista transposta
+            grafoMatriz = matriz.converteListaEmMatriz(lista, nVert);   //setando a matriz transposta 
+//        }                                                             
+        
+this.graph = new Graph(nVert); ///desenho
+
+        for(Vertice vert : transposto){
+            auxiliar = vert.getAdjacencia();
+            Vertex vS = this.graph.getVertex().get(vert.getNumero());
+            for(String aux : auxiliar){
+                String valorAdj[] = aux.split(" ");
+                Vertex vT = this.graph.getVertex().get(Integer.parseInt(valorAdj[0]));
+//                System.out.println("vs ->"+vert.getNumero());;
+//                System.out.println("vT ->"+Integer.parseInt(aux)+"\n");
+                Edge e = new Edge(vS ,vT , Integer.parseInt(valorAdj[1]) //peso da aresta//
+                    ); //desenho
+                this.graph.addEdge(e);    //desenho
+            }
+        }
+        this.view.setGraph(graph);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     public class ViewPanel extends JPanel {
 
@@ -471,6 +514,7 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu opcoes_Menu;
     private javax.swing.JMenuItem salvarImagem_Menu;

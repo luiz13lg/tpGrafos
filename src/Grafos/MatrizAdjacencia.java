@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -71,9 +72,9 @@ public class MatrizAdjacencia {
     private static void iniciaMatriz(int matriz[][], int nVertices){
         int aux1, aux2;
         for(aux1 = 0 ; aux1 < nVertices ; aux1++ ){     //setando todas as posições com valor infinito
-            for(aux2 = 0; aux2 < nVertices; aux2++)
-                matriz[aux1][aux2] = infinito;
-       }
+            for(aux2 = 0; aux2 < nVertices; aux2++)     //
+                matriz[aux1][aux2] = infinito;          //
+       }                                                //
     }
 
     private static void leGrafoMatriz(int matrizAdj[][],BufferedReader br) throws IOException{
@@ -215,5 +216,23 @@ public class MatrizAdjacencia {
             dist[j] = dist[i] + pesoAresta;
             ant[j] = i;
         }
+    }
+    
+    public int[][] converteListaEmMatriz(Vertice[] listaAdjacencia, int ordem){
+        int matriz[][] = new int [ordem][ordem];
+        ArrayList <String> auxiliar;
+
+        iniciaMatriz(matriz,ordem); //setando todas as posições como infinito
+        
+        for(Vertice vert : listaAdjacencia){
+            auxiliar = vert.getAdjacencia();
+            for(String aux : auxiliar){
+                String valorAdj[] = aux.split(" ");
+                matriz[vert.getNumero()][Integer.parseInt(valorAdj[0])] = Integer.parseInt(valorAdj[1]);
+            }
+        }
+        
+        
+        return matriz;
     }
 }

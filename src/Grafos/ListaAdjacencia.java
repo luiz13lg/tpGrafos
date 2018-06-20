@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -222,4 +223,25 @@ public class ListaAdjacencia {
         return vert;
     }
     
+        public Vertice[] iniciaTransposto(Vertice[] listaAdjacencia, int ordem){
+        Vertice[] transposto = new Vertice[ordem];
+        ArrayList <String> auxiliar;
+        
+        for(int i = 0; i < listaAdjacencia.length; i++){ //inicializando verts
+            transposto[i] = new Vertice();               //
+            transposto[i].setNumero(i);                  //
+        }                                                //
+        for(Vertice vert : listaAdjacencia){
+            auxiliar = vert.getAdjacencia();
+            for(String aux : auxiliar){
+                String valorAdj[] = aux.split(" ");
+                transposto[Integer.parseInt(valorAdj[0])].addAdjacencia(String.valueOf(vert.getNumero()) 
+                        + " " + valorAdj[1]);
+//                System.out.println("vertice: " + Integer.parseInt(valorAdj[0]));
+//                System.out.println("adj: "+ String.valueOf(vert.getNumero()));
+//                System.out.println("");
+            }
+        }
+        return transposto;
+    }
 }
