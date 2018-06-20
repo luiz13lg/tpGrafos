@@ -14,6 +14,7 @@ import Grafos.ListaAdjacencia;
 import Grafos.MatrizAdjacencia;
 import Grafos.Vertice;
 import Grafos.classe.DFS;
+import Grafos.classe.BFS;
 import Grafos.desenho.color.RainbowScale;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -31,6 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -69,6 +71,7 @@ public class View extends javax.swing.JFrame {
         algoritmos_Menu = new javax.swing.JMenu();
         componentesConexas_Menu = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,6 +112,14 @@ public class View extends javax.swing.JFrame {
             }
         });
         algoritmos_Menu.add(jMenuItem1);
+
+        jMenuItem2.setText("Caminho 'u' à 'v'");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        algoritmos_Menu.add(jMenuItem2);
 
         jMenuBar1.add(algoritmos_Menu);
 
@@ -250,6 +261,48 @@ public class View extends javax.swing.JFrame {
         this.view.cleanImage();
         this.view.repaint();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        int vert1 = Integer.parseInt(JOptionPane.showInputDialog("Vértice u:"));
+        int vert2 = Integer.parseInt(JOptionPane.showInputDialog("Vértice v:"));
+        DFS dfs = new DFS();
+        BFS bfs = new BFS();
+
+        ArrayList <Integer> vertices = new ArrayList <Integer>();
+        
+        RainbowScale rbS = new RainbowScale();
+        int comp[] = dfs.getComponentes();
+        int compStep = 255 / lista.length;
+        
+        String opt[] = {"DFS","BFS"};
+
+        int busca = JOptionPane.showOptionDialog(null,
+            "Escolha o tipo de BUSCA",
+            "DFS x BFS",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            opt,
+            0);
+
+        if(busca == 0){         //DFS
+            dfs.caminhoMatriz(vert1, vert2, grafoMatriz, nVert);
+            vertices = dfs.getVertices();
+            System.out.println(dfs.getResultado());
+        } else{                 //BFS
+            bfs.verificaCaminhoMatriz(vert1, vert2, grafoMatriz, nVert);
+        }
+        
+        for (int i = 0; i < nVert; i++)                                 //pintando todos vertices de preto
+            this.graph.getVertex().get(i).setColor(rbS.getColor(0));    //
+        
+        for (int i = 0; i < vertices.size(); i++) {                                         //pintando apenas o caminho
+            this.graph.getVertex().get(vertices.get(i)).setColor(rbS.returnVermelho());     //
+        }
+        
+        this.view.cleanImage();
+        this.view.repaint();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     public class ViewPanel extends JPanel {
 
@@ -415,6 +468,7 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JMenuItem componentesConexas_Menu;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu opcoes_Menu;
     private javax.swing.JMenuItem salvarImagem_Menu;
