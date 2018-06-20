@@ -5,7 +5,7 @@
 
 package Grafos.classe;
 import Grafos.*;
-import java.util.ArrayList;
+
 
 /**
  *
@@ -26,19 +26,11 @@ public class Coloracao {
 
     private void coloreVertice(Vertice[] lista, int vert) {
         cores[vert] = corApropriada(lista, vert);
-         //adj = lista[vert].getAdj();
         for(int i=0;i<lista[vert].getAdjacencia().size();i++){
             if(cores[ Integer.parseInt(String.valueOf(lista[vert].getAdjacencia().get(i).charAt(0)))] == -1){
                 coloreVertice(lista,Integer.parseInt(String.valueOf(lista[vert].getAdjacencia().get(i).charAt(0))));
             }
         }
-         
-//         while (adj != null) {
-//            if (cores[adj.getNumero()] == -1) {
-//                coloreVertice(lista, adj.getNumero());
-//            }
-//            adj = adj.getAdj();
-//        }
     }
     
     private int corApropriada(Vertice[] lista, int vert){
