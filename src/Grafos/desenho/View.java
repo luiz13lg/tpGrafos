@@ -82,6 +82,7 @@ public class View extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         restaurar = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
@@ -150,6 +151,14 @@ public class View extends javax.swing.JFrame {
             }
         });
         algoritmos_Menu.add(jMenuItem3);
+
+        jMenuItem4.setText("Componentes f-conexos");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        algoritmos_Menu.add(jMenuItem4);
         algoritmos_Menu.add(jSeparator1);
 
         restaurar.setText("Restaurar Grafo");
@@ -545,6 +554,33 @@ public class View extends javax.swing.JFrame {
 //        aplicacao.setVisible(true);
     }//GEN-LAST:event_jMenu1MenuSelected
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        Coloracao coloracao = new Coloracao();
+        coloracao.execute(lista);
+        
+        DFS dfs = new DFS();
+        ArrayList <Integer> ordemElementos = new ArrayList <Integer>();
+        Vertice transposto [];
+        
+        int coresStep = 255/lista.length;
+        System.out.println("cores:" + coresStep);
+        RainbowScale rbS = new RainbowScale();
+        
+        ordemElementos = dfs.executaDFS(lista, nVert);
+        transposto = listaAdjacencia.iniciaTransposto(lista, nVert);
+        
+        dfs.conectividadeDFS(transposto, nVert, ordemElementos);
+
+//        for(Vertice vert : transposto)
+//            System.out.println(vert.getComponente());
+        
+        for(Vertice vert : transposto)
+            this.graph.getVertex().get(vert.getNumero()).setColor(rbS.getColor(vert.getComponente() * coresStep));
+
+        this.view.cleanImage();
+        this.view.repaint();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     private void criarTimes(){
             Campeao[] TeamA = new Campeao[5];
             Campeao[] TeamB = new Campeao[5];
@@ -814,6 +850,7 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu opcoes_Menu;

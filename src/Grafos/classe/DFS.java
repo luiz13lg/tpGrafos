@@ -7,6 +7,7 @@ package Grafos.classe;
 
 import Grafos.Vertice;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -24,7 +25,7 @@ public class DFS {
     
     private int componente []; //para detectar componentes distintos no grafo
     private int componenteAtual; //para atualizar o valor do componente
-        
+            
     private String impressao = "";   //variavel para exibir resultados    
     private ArrayList <Integer> vertices = new ArrayList <Integer>();   //variavel para caminho...
                                                                         //...u a v (interface gráfica)
@@ -51,6 +52,8 @@ public class DFS {
     
     private void visita (Vertice vert, Vertice grafo[]){
         vert.setCor(1);                 //cinzou
+        //System.out.println(vert.getNumero());
+
         vert.setComponente(componenteAtual);
         tempo++;                        //aumentando tempo de descoberta
         vert.setTempoInicial(tempo);    //setando tempo de descoberta ao vertice
@@ -271,4 +274,96 @@ public class DFS {
     public ArrayList getVertices(){
         return vertices;
     }
+    
+    public ArrayList executaDFS(Vertice lista[], int ordem){
+        ArrayList <Integer> ordemVertice = new ArrayList <Integer>();
+        
+        for(Vertice vert : lista){          //setando todos vertices
+            vert.setCor(0);                 //
+            vert.setTempoInicial(-1);       //
+            vert.setTempoFinal(-1);         //
+        }
+        componenteAtual = 1;
+        tempo = 0;
+        
+        ordemVertice = visitaVertices(lista[0], lista, ordemVertice);
+        
+        for(Vertice vert : lista){
+            if (vert.getCor() == 0){
+                componenteAtual++;
+                ordemVertice = visitaVertices(vert, lista, ordemVertice);
+            }
+        }
+        Collections.reverse(ordemVertice);
+        return ordemVertice;
+    }
+    
+    private ArrayList visitaVertices (Vertice vert, Vertice grafo[], ArrayList ordemVertice){
+        vert.setCor(1);                 //cinzou
+        ordemVertice.add(vert.getNumero());
+
+        vert.setComponente(componenteAtual);
+        tempo++;                        //aumentando tempo de descoberta
+        vert.setTempoInicial(tempo);    //setando tempo de descoberta ao vertice
+    
+        for(String adj : vert.getAdjacencia()){             //array com vertices e seus pesos. Ex.: [vert peso; 1 3; 3 4]
+            String vertsAdj[] = adj.split(" ");             //separando o numero do vertice do seu peso. [1;3]
+            int posicao = Integer.parseInt(vertsAdj[0]);    //transformando a posicao em int [1];
+            if(grafo[posicao].getCor() == 0){
+                vert.setPredecessor(vert);
+                visitaVertices(grafo[posicao], grafo, ordemVertice);
+            }
+        }
+        vert.setCor(2); //preteou
+        tempo++;
+        vert.setTempoFinal(tempo);
+        return ordemVertice;
+    }
+
+    public void conectividadeDFS(Vertice transposto[], int nVert, ArrayList <Integer> teste){
+        
+        for(Vertice vert : transposto){          //setando todos vertices
+            vert.setCor(0);                 //
+            vert.setTempoInicial(-1);       //
+            vert.setTempoFinal(-1);         //
+        }
+        
+        componenteAtual = 1;
+//        transposto[teste.get(0)].setComponente(componenteAtual);
+        tempo = 0;
+        
+        visitaVerticesTransposto(transposto[teste.get(0)], transposto, teste);
+        System.out.println(teste.size());
+        
+        for(Vertice vert : transposto){
+            if (vert.getCor() == 0){
+                componenteAtual++;
+                visitaVerticesTransposto(vert, transposto, teste);
+            }
+        }
+    }
+    
+    private void visitaVerticesTransposto (Vertice vert, Vertice grafo[], ArrayList <Integer> lista){
+        lista.remove(0);
+        
+        vert.setComponente(componenteAtual);
+        
+        vert.setCor(1); //cinzou
+
+        tempo++;                        //aumentando tempo de descoberta
+        vert.setTempoInicial(tempo);    //setando tempo de descoberta ao vertice
+    
+        for(String adj : vert.getAdjacencia()){         //array com vertices e seus pesos. Ex.: [vert peso; 1 3; 3 4]
+            String vertsAdj[] = adj.split(" ");         //separando o numero do vertice do seu peso. [1;3]
+            int posicao = Integer.parseInt(vertsAdj[0]);//transformando a posicao em int [1];
+            if(grafo[posicao].getCor() == 0){
+                vert.setPredecessor(vert);
+                visitaVerticesTransposto(grafo[posicao], grafo, lista);
+            }
+        }
+        vert.setCor(2); //preteou
+        tempo++;
+        vert.setTempoFinal(tempo);
+    }
+    
 }
