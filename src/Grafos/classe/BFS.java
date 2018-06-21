@@ -211,7 +211,6 @@ public class BFS {
     
     public ArrayList BFSdescobrimento(Vertice grafo[], Vertice raiz){
         ArrayList <Integer> verticeDescobrimento = new ArrayList <Integer>();
-        resultado = "";
         
         for(Vertice vert : grafo){      //iniciando todos os vertices
             vert.setCor(0);             //
@@ -223,7 +222,6 @@ public class BFS {
         raiz.setPredecessor(null);      //
 
         addFila(raiz);
-        resultado += "Vertice[" + raiz.getNumero() + "] " + "> " + raiz.getDistancia()+"\n\n";
         
         while(!fila.isEmpty()){
             Vertice u = Desenfileira();
@@ -237,7 +235,6 @@ public class BFS {
                         u.getDistancia()+1);
                     grafo[posicao].setPredecessor(u);
                     
-                    resultado += "Vertice[" + grafo[posicao].getNumero() + "] > Distância: " + grafo[posicao].getDistancia() + "\n";
                     verticeDescobrimento.add(grafo[posicao].getNumero());
                     fila.add(grafo[posicao]);
                 }
