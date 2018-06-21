@@ -596,7 +596,7 @@ public class View extends javax.swing.JFrame {
             System.out.println(lista[verticeA].getDistancia());
             if(lista[verticeA].getDistancia() == 1){
                 JOptionPane.showMessageDialog(null, "Equipe B tem vantagem em relação a Equipe A");
-//                Resultado.setText("Equipe B tem vantagem em relação a Equipe A");
+                Resultado.setText("Equipe B tem vantagem em relação a Equipe A");
                 bfs.verificaCaminhoMatriz(verticeB, verticeA, grafoMatriz, nVert);
                 vertices = bfs.getVertices();
                 for (int i = 0; i < nVert; i++){                                 //pintando todos vertices de preto
@@ -630,9 +630,6 @@ public class View extends javax.swing.JFrame {
             }
         }
 
-        
-//        Aplicacao aplicacao = new Aplicacao();
-//        aplicacao.setVisible(true);
     }//GEN-LAST:event_jMenu1MenuSelected
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
