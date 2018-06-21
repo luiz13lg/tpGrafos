@@ -328,6 +328,7 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_salvarImagem_MenuActionPerformed
 
     private void componentesConexas_MenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_componentesConexas_MenuActionPerformed
+        if(grafoDigrafo == 0){
         DFS dfs = new DFS();
         dfs.conexoMatriz(grafoMatriz,nVert);
         
@@ -343,6 +344,7 @@ public class View extends javax.swing.JFrame {
         }
         this.view.cleanImage();
         this.view.repaint();
+        }else JOptionPane.showMessageDialog(null,"O algoritmo é reestrito a grafos");
     }//GEN-LAST:event_componentesConexas_MenuActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -363,7 +365,7 @@ public class View extends javax.swing.JFrame {
             }
             this.view.cleanImage();
             this.view.repaint();
-        }else JOptionPane.showMessageDialog(null,"O algoritmo é reestrito à grafos não orientados");
+        }else JOptionPane.showMessageDialog(null,"O algoritmo é reestrito a grafos");
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -437,7 +439,7 @@ public class View extends javax.swing.JFrame {
             this.view.setGraph(graph);
             this.view.cleanImage();
             this.view.repaint();
-        }else JOptionPane.showMessageDialog(null,"O algoritmo é reestrito à digrafos");
+        }else JOptionPane.showMessageDialog(null,"O algoritmo é reestrito a digrafos");
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void restaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurarActionPerformed
@@ -625,6 +627,7 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1MenuSelected
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        if(grafoDigrafo == 1){
         Coloracao coloracao = new Coloracao();
         coloracao.execute(lista);
         
@@ -649,6 +652,7 @@ public class View extends javax.swing.JFrame {
 
         this.view.cleanImage();
         this.view.repaint();
+        }JOptionPane.showMessageDialog(null,"O algoritmo é reestrito a digrafos");
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
