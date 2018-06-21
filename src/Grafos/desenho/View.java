@@ -557,7 +557,7 @@ public class View extends javax.swing.JFrame {
 
         if(lista[verticeB].getDistancia() == 1){
             JOptionPane.showMessageDialog(null, "Equipe A tem vantagem em relação a Equipe B");
-//            Resultado.setText("Equipe A tem vantagem em relação a Equipe B");
+            Resultado.setText("Equipe A tem vantagem em relação a Equipe B");
             bfs.verificaCaminhoMatriz(verticeA, verticeB, grafoMatriz, nVert);
             vertices = bfs.getVertices();
             for (int i = 0; i < nVert; i++){                                 //pintando todos vertices de preto
@@ -574,7 +574,7 @@ public class View extends javax.swing.JFrame {
         }
         else{
            bfs.BFS(lista,lista[verticeB]);
-//            System.out.println(lista[verticeA].getDistancia());
+            System.out.println(lista[verticeA].getDistancia());
             if(lista[verticeA].getDistancia() == 1){
                 JOptionPane.showMessageDialog(null, "Equipe B tem vantagem em relação a Equipe A");
 //                Resultado.setText("Equipe B tem vantagem em relação a Equipe A");
@@ -594,7 +594,7 @@ public class View extends javax.swing.JFrame {
             } 
             else{
                 JOptionPane.showMessageDialog(null, "As equipes não possuem relação direta, boa sorte invocador");
-//                Resultado.setText("As equipes não possuem relação direta, boa sorte invocador");
+                Resultado.setText("As equipes não possuem relação direta, boa sorte invocador");
                 bfs.verificaCaminhoMatriz(verticeA, verticeB, grafoMatriz, nVert);
                 vertices = bfs.getVertices();
                 for (int i = 0; i < nVert; i++){                                 //pintando todos vertices de preto

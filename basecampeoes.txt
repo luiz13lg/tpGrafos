@@ -37,7 +37,7 @@ Graves,AOE
 Hecarim,Dive
 Heimerdinger,AOE
 Illaoi,AOE
-Irelia,Split
+Irelia,Dive
 Ivern,Peel
 Janna,Peel
 Jarvan IV,Dive
