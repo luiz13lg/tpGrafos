@@ -366,4 +366,48 @@ public class DFS {
         vert.setTempoFinal(tempo);
     }
     
+    public ArrayList ordemTopologicaDFS(Vertice lista[], int ordem){
+        ArrayList <Integer> ordemVertice = new ArrayList <Integer>();
+        
+        for(Vertice vert : lista){          //setando todos vertices
+            vert.setCor(0);                 //
+            vert.setTempoInicial(-1);       //
+            vert.setTempoFinal(-1);         //
+        }
+        componenteAtual = 1;
+        tempo = 0;
+        
+        ordemVertice = visitaVerticesOrdemTopologica(lista[0], lista, ordemVertice);
+        
+        for(Vertice vert : lista){
+            if (vert.getCor() == 0){
+                componenteAtual++;
+                ordemVertice = visitaVerticesOrdemTopologica(vert, lista, ordemVertice);
+            }
+        }
+        Collections.reverse(ordemVertice);
+        return ordemVertice;
+    }
+    
+    private ArrayList visitaVerticesOrdemTopologica (Vertice vert, Vertice grafo[], ArrayList ordemVertice){
+        vert.setCor(1);                 //cinzou
+
+        vert.setComponente(componenteAtual);
+        tempo++;                        //aumentando tempo de descoberta
+        vert.setTempoInicial(tempo);    //setando tempo de descoberta ao vertice
+    
+        for(String adj : vert.getAdjacencia()){             //array com vertices e seus pesos. Ex.: [vert peso; 1 3; 3 4]
+            String vertsAdj[] = adj.split(" ");             //separando o numero do vertice do seu peso. [1;3]
+            int posicao = Integer.parseInt(vertsAdj[0]);    //transformando a posicao em int [1];
+            if(grafo[posicao].getCor() == 0){
+                vert.setPredecessor(vert);
+                visitaVertices(grafo[posicao], grafo, ordemVertice);
+            }
+        }
+        vert.setCor(2); //preteou
+        ordemVertice.add(vert.getNumero());
+        tempo++;
+        vert.setTempoFinal(tempo);
+        return ordemVertice;
+    }
 }

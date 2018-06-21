@@ -85,6 +85,7 @@ public class View extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         bfs = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         restaurar = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
@@ -175,6 +176,14 @@ public class View extends javax.swing.JFrame {
             }
         });
         algoritmos_Menu.add(bfs);
+
+        jMenuItem5.setText("Ordenação Topológica");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        algoritmos_Menu.add(jMenuItem5);
         algoritmos_Menu.add(jSeparator1);
 
         restaurar.setText("Restaurar Grafo");
@@ -756,6 +765,17 @@ public class View extends javax.swing.JFrame {
         // NAO USADO
     }//GEN-LAST:event_jMenu1MenuKeyPressed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        DFS dfs = new DFS();
+        
+        ArrayList <Integer> verticesOrdemTopologica = new ArrayList <Integer>();
+        
+        verticesOrdemTopologica = dfs.ordemTopologicaDFS(lista, nVert);
+        
+        for(int i : verticesOrdemTopologica)
+            System.out.println(verticesOrdemTopologica.get(i));
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     private void criarTimes(){
             Campeao[] TeamA = new Campeao[5];
             Campeao[] TeamB = new Campeao[5];
@@ -1027,6 +1047,7 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu opcoes_Menu;
