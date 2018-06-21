@@ -764,14 +764,20 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1MenuKeyPressed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        if(grafoDigrafo == 1){
         DFS dfs = new DFS();
+        String msg = "";
         
         ArrayList <Integer> verticesOrdemTopologica = new ArrayList <Integer>();
         
         verticesOrdemTopologica = dfs.ordemTopologicaDFS(lista, nVert);
         
-        for(int i : verticesOrdemTopologica)
+        for(int i : verticesOrdemTopologica){
             System.out.println(verticesOrdemTopologica.get(i));
+            msg += verticesOrdemTopologica.get(i) + " ";
+        }
+        Resultado.setText(msg);  
+        }else JOptionPane.showMessageDialog(null,"O algoritmo é reestrito a digrafos");
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void criarTimes(){
