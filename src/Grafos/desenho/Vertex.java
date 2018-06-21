@@ -15,7 +15,7 @@ public class Vertex {
     private float y;
     private int ray = 8;
     private Boolean selected = true;
-    private Color color = Color.RED;
+    private Color color;// = Color.RED;
     private int ID;
 
     public int getID() {

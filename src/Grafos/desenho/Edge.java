@@ -15,7 +15,7 @@ import java.awt.Point;
  */
 public class Edge {
 
-    private Color color = Color.WHITE; //Cor da aresta
+    private Color color = Color.BLACK; //Cor da aresta
     private Vertex source; //primeiro vetice da aresta
     private Vertex target; //segundo vertice da aresta
     private int peso;   //peso da aresta
@@ -43,9 +43,9 @@ public class Edge {
             }
         }
 
-        this.color = new Color((this.source.getColor().getRed() + this.target.getColor().getRed()) / 2,
-                (this.source.getColor().getGreen() + this.target.getColor().getGreen()) / 2,
-                (this.source.getColor().getBlue() + this.target.getColor().getBlue()) / 2);
+//        this.color = new Color((this.source.getColor().getRed() + this.target.getColor().getRed()) / 2,
+//                (this.source.getColor().getGreen() + this.target.getColor().getGreen()) / 2,
+//                (this.source.getColor().getBlue() + this.target.getColor().getBlue()) / 2);
 
         g2.setColor(this.color);
 

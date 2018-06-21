@@ -664,26 +664,31 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void bfsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bfsActionPerformed
+        Coloracao coloracao = new Coloracao();
+        coloracao.execute(lista);
+        
+        RainbowScale rbS = new RainbowScale();
+        
         BFS bfs = new BFS();
         ArrayList <Integer> vertices = new ArrayList <Integer>();
         int vert1 = Integer.parseInt(JOptionPane.showInputDialog("Vértice u:"));
-        RainbowScale rbS = new RainbowScale();
         
         vertices = bfs.BFSdescobrimento(lista, lista[vert1]);
         
+        int coresStep = 255/vertices.size();
 //        for(int i = 0; i < nVert; i++)
-//            System.out.println(vertices.get(i));
+//            System.out.println("Vertice: " + vertices.get(i) + "-> " + lista[vertices.get(i)].getDistancia());
         
-        for (int i = 0; i < nVert; i++)                                 //pintando todos vertices de preto
+        for (int i = 0; i < nVert; i++){                                 //pintando todos vertices de preto
             this.graph.getVertex().get(i).setColor(rbS.getColor(0));    //
- 
-        
-        this.graph.getVertex().get(lista[vert1].getNumero()).setColor(rbS.returnVermelho());
-        
-        if(vertices.get(0) != -1)
+            this.graph.getVertex().get(i).setSelected(false);
+        }
+        this.graph.getVertex().get(lista[vert1].getNumero()).setColor(rbS.returnVermelho()); //pintando raiz de vermelho
+
+        if(vertices.get(0) != null)
             for (int i = 0; i < vertices.size(); i++){                                      //destacando
-                this.graph.getVertex().get(vertices.get(i)).setColor(rbS.returnVermelho()); //o caminho
-                this.graph.getVertex().get(vertices.get(i)).setSelected(true);              //                
+                this.graph.getVertex().get(vertices.get(i)).setColor( rbS.getColor(lista[vertices.get(i)].getDistancia() * 40)); //o caminho
+                this.graph.getVertex().get(i).setSelected(true);
             }
         
         this.view.cleanImage();
