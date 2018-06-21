@@ -661,7 +661,8 @@ public class View extends javax.swing.JFrame {
 
         this.view.cleanImage();
         this.view.repaint();
-        }JOptionPane.showMessageDialog(null,"O algoritmo é reestrito a digrafos");
+        
+        }else JOptionPane.showMessageDialog(null,"O algoritmo é reestrito a digrafos");
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
