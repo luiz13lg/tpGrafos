@@ -39,6 +39,7 @@ public class Coloracao {
         int i=0;
         while(!flag){
             cor++;
+            i=0;
             while(i <lista[vert].getAdjacencia().size() && cores[Integer.parseInt(String.valueOf(lista[vert].getAdjacencia().get(i).charAt(0)))] != cor)
                 i++;
             if(i == lista[vert].getAdjacencia().size())flag = true;
