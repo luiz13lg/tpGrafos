@@ -84,6 +84,7 @@ public class View extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        bfs = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         restaurar = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
@@ -166,6 +167,14 @@ public class View extends javax.swing.JFrame {
             }
         });
         algoritmos_Menu.add(jMenuItem4);
+
+        bfs.setText("Busca em Largura");
+        bfs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bfsActionPerformed(evt);
+            }
+        });
+        algoritmos_Menu.add(bfs);
         algoritmos_Menu.add(jSeparator1);
 
         restaurar.setText("Restaurar Grafo");
@@ -387,7 +396,7 @@ public class View extends javax.swing.JFrame {
             for (int i = 0; i < vertices.size(); i++){                                      //destacando
                 this.graph.getVertex().get(vertices.get(i)).setColor(rbS.returnVermelho()); //o caminho
                 this.graph.getVertex().get(vertices.get(i)).setSelected(true);              //                
-            }
+        }
         this.view.cleanImage();
         this.view.repaint();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
@@ -654,6 +663,33 @@ public class View extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowOpened
 
+    private void bfsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bfsActionPerformed
+        BFS bfs = new BFS();
+        ArrayList <Integer> vertices = new ArrayList <Integer>();
+        int vert1 = Integer.parseInt(JOptionPane.showInputDialog("Vértice u:"));
+        RainbowScale rbS = new RainbowScale();
+        
+        vertices = bfs.BFSdescobrimento(lista, lista[vert1]);
+        
+//        for(int i = 0; i < nVert; i++)
+//            System.out.println(vertices.get(i));
+        
+        for (int i = 0; i < nVert; i++)                                 //pintando todos vertices de preto
+            this.graph.getVertex().get(i).setColor(rbS.getColor(0));    //
+ 
+        
+        this.graph.getVertex().get(lista[vert1].getNumero()).setColor(rbS.returnVermelho());
+        
+        if(vertices.get(0) != -1)
+            for (int i = 0; i < vertices.size(); i++){                                      //destacando
+                this.graph.getVertex().get(vertices.get(i)).setColor(rbS.returnVermelho()); //o caminho
+                this.graph.getVertex().get(vertices.get(i)).setSelected(true);              //                
+            }
+        
+        this.view.cleanImage();
+        this.view.repaint();
+    }//GEN-LAST:event_bfsActionPerformed
+
     private void criarTimes(){
             Campeao[] TeamA = new Campeao[5];
             Campeao[] TeamB = new Campeao[5];
@@ -916,6 +952,7 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JLabel CompB;
     private javax.swing.JLabel Resultado;
     private javax.swing.JMenu algoritmos_Menu;
+    private javax.swing.JMenuItem bfs;
     private javax.swing.JMenuItem carregarGrafo_Menu;
     private javax.swing.JMenuItem componentesConexas_Menu;
     private javax.swing.JMenu jMenu1;

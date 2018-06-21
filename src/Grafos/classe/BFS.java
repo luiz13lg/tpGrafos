@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Luiz
  */
-public class BFS {
+public class BFS {    
     private ArrayList <Vertice> fila = new ArrayList <Vertice>();
     String resultado = "";
     
@@ -37,6 +37,7 @@ public class BFS {
 
         addFila(raiz);
         resultado += "Vertice[" + raiz.getNumero() + "] " + "> " + raiz.getDistancia()+"\n\n";
+        
         while(!fila.isEmpty()){
             Vertice u = Desenfileira();
             
@@ -50,7 +51,6 @@ public class BFS {
                     grafo[posicao].setPredecessor(u);
                     
                     resultado += "Vertice[" + grafo[posicao].getNumero() + "] > Distância: " + grafo[posicao].getDistancia() + "\n";
-                    
                     fila.add(grafo[posicao]);
                 }
             } u.setCor(2);
@@ -207,6 +207,43 @@ public class BFS {
     
     public ArrayList getVertices(){
         return vertices;
+    }
+    
+    public ArrayList BFSdescobrimento(Vertice grafo[], Vertice raiz){
+        ArrayList <Integer> verticeDescobrimento = new ArrayList <Integer>();
+        resultado = "";
+        
+        for(Vertice vert : grafo){      //iniciando todos os vertices
+            vert.setCor(0);             //
+            vert.setDistancia(-1);      //
+            vert.setPredecessor(null);  //
+        }
+        raiz.setCor(1);                 //iniciando o vertice raiz
+        raiz.setDistancia(0);           //
+        raiz.setPredecessor(null);      //
+
+        addFila(raiz);
+        resultado += "Vertice[" + raiz.getNumero() + "] " + "> " + raiz.getDistancia()+"\n\n";
+        
+        while(!fila.isEmpty()){
+            Vertice u = Desenfileira();
+            
+            for(String v : u.getAdjacencia()){              //array com vertices e seus pesos. Ex.: [vert peso; 1 3; 3 4]
+                String vertice[] = v.split(" ");            //separando o numero do vertice do seu peso. [1;3]        
+                int posicao = Integer.parseInt(vertice[0]); //transformando a posicao em int [1];
+                if(grafo[posicao].getCor() == 0){
+                    grafo[posicao].setCor(1);
+                    grafo[posicao].setDistancia(
+                        u.getDistancia()+1);
+                    grafo[posicao].setPredecessor(u);
+                    
+                    resultado += "Vertice[" + grafo[posicao].getNumero() + "] > Distância: " + grafo[posicao].getDistancia() + "\n";
+                    verticeDescobrimento.add(grafo[posicao].getNumero());
+                    fila.add(grafo[posicao]);
+                }
+            } u.setCor(2);
+        }
+        return verticeDescobrimento;
     }
     
 }
