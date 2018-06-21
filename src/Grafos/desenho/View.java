@@ -188,6 +188,15 @@ public class View extends javax.swing.JFrame {
         jMenuBar1.add(algoritmos_Menu);
 
         jMenu1.setText("Aplicacao");
+        jMenu1.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
+            public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
+                jMenu1MenuKeyPressed(evt);
+            }
+            public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
+            }
+            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
+            }
+        });
         jMenu1.addMenuListener(new javax.swing.event.MenuListener() {
             public void menuCanceled(javax.swing.event.MenuEvent evt) {
             }
@@ -459,8 +468,7 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_restaurarActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-        //nao usado /// ignorar
-        
+        //NAO USADO
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void jMenu1MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu1MenuSelected
@@ -740,6 +748,10 @@ public class View extends javax.swing.JFrame {
         this.view.cleanImage();
         this.view.repaint();
     }//GEN-LAST:event_bfsActionPerformed
+
+    private void jMenu1MenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_jMenu1MenuKeyPressed
+        // NAO USADO
+    }//GEN-LAST:event_jMenu1MenuKeyPressed
 
     private void criarTimes(){
             Campeao[] TeamA = new Campeao[5];
