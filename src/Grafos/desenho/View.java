@@ -550,20 +550,78 @@ public class View extends javax.swing.JFrame {
         if(compTeamB.equals("split"))verticeB = 3;
         if(compTeamB.equals("peel"))verticeB = 4;
         
-        
+        ArrayList <Integer> vertices = new ArrayList <Integer>();
+        RainbowScale rbS = new RainbowScale();
         
         bfs.BFS(lista,lista[verticeA]);
 //        System.out.println(lista[verticeB].getDistancia());
-        if(lista[verticeB].getDistancia() == 1)Resultado.setText("Equipe A tem vantagem em relação a Equipe B");
+        if(lista[verticeB].getDistancia() == 1){
+            Resultado.setText("Equipe A tem vantagem em relação a Equipe B");
+            bfs.verificaCaminhoMatriz(verticeA, verticeB, grafoMatriz, nVert);
+            vertices = bfs.getVertices();
+            for (int i = 0; i < nVert; i++){                                 //pintando todos vertices de preto
+            this.graph.getVertex().get(i).setColor(rbS.getColor(0));    //
+            this.graph.getVertex().get(i).setSelected(false);           //
+            }    
+            if(vertices.get(0) != -1)
+                for (int i = 0; i < vertices.size(); i++){                                      //destacando
+                    this.graph.getVertex().get(vertices.get(i)).setColor(rbS.returnVermelho()); //o caminho
+                    this.graph.getVertex().get(vertices.get(i)).setSelected(true);              //                
+            }
+            this.view.cleanImage();
+            this.view.repaint();
+        }
         else{
            bfs.BFS(lista,lista[verticeB]);
 //            System.out.println(lista[verticeA].getDistancia());
-            if(lista[verticeA].getDistancia() == 1)Resultado.setText("Equipe B tem vantagem em relação a Equipe A"); 
+            if(lista[verticeA].getDistancia() == 1){
+                Resultado.setText("Equipe B tem vantagem em relação a Equipe A");
+                bfs.verificaCaminhoMatriz(verticeB, verticeA, grafoMatriz, nVert);
+                vertices = bfs.getVertices();
+                for (int i = 0; i < nVert; i++){                                 //pintando todos vertices de preto
+                this.graph.getVertex().get(i).setColor(rbS.getColor(0));    //
+                this.graph.getVertex().get(i).setSelected(false);           //
+                }    
+                if(vertices.get(0) != -1)
+                    for (int i = 0; i < vertices.size(); i++){                                      //destacando
+                        this.graph.getVertex().get(vertices.get(i)).setColor(rbS.returnVermelho()); //o caminho
+                        this.graph.getVertex().get(vertices.get(i)).setSelected(true);              //                
+                }
+                this.view.cleanImage();
+                this.view.repaint();
+            } 
             else{
                 Resultado.setText("As equipes não possuem relação direta, boa sorte invocador");
+                bfs.verificaCaminhoMatriz(verticeA, verticeB, grafoMatriz, nVert);
+                vertices = bfs.getVertices();
+                for (int i = 0; i < nVert; i++){                                 //pintando todos vertices de preto
+                this.graph.getVertex().get(i).setColor(rbS.getColor(0));    //
+                this.graph.getVertex().get(i).setSelected(false);           //
+                }    
+                if(vertices.get(0) != -1)
+                    for (int i = 0; i < vertices.size(); i++){                                      //destacando
+                        this.graph.getVertex().get(vertices.get(i)).setColor(rbS.returnVermelho()); //o caminho
+                        this.graph.getVertex().get(vertices.get(i)).setSelected(true);              //                
+                }
+                this.view.cleanImage();
+                this.view.repaint();
             }
         }
  
+        
+            bfs.verificaCaminhoMatriz(verticeB, verticeA, grafoMatriz, nVert);
+            vertices = bfs.getVertices();
+            for (int i = 0; i < nVert; i++){                                 //pintando todos vertices de preto
+            this.graph.getVertex().get(i).setColor(rbS.getColor(0));    //
+            this.graph.getVertex().get(i).setSelected(false);           //
+            }    
+            if(vertices.get(0) != -1)
+                for (int i = 0; i < vertices.size(); i++){                                      //destacando
+                    this.graph.getVertex().get(vertices.get(i)).setColor(rbS.returnVermelho()); //o caminho
+                    this.graph.getVertex().get(vertices.get(i)).setSelected(true);              //                
+            }
+            this.view.cleanImage();
+            this.view.repaint();
        //analisar no grafo
         
 //        Aplicacao aplicacao = new Aplicacao();

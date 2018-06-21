@@ -112,7 +112,7 @@ Taric,Peel
 Teemo,Split
 Thresh,Dive
 Tristana,Dive
-Trundle,Split
+Trundle,AOE
 Tryndamere,Split
 Twisted Fate,Split
 Twitch,AOE
@@ -124,7 +124,7 @@ Veigar,AOE
 Vel'Koz,AOE
 Vi,Dive
 Viktor,AOE
-Vladimir,Split
+Vladimir,Dive
 Volibear,Dive
 Warwick,Dive
 Wukong,AOE
