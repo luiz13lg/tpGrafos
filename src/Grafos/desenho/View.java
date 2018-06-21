@@ -727,14 +727,13 @@ public class View extends javax.swing.JFrame {
         
         for (int i = 0; i < nVert; i++){                                 //pintando todos vertices de preto
             this.graph.getVertex().get(i).setColor(rbS.getColor(0));    //
-            this.graph.getVertex().get(i).setSelected(false);
         }
         this.graph.getVertex().get(lista[vert1].getNumero()).setColor(rbS.returnVermelho()); //pintando raiz de vermelho
 
         if(vertices.get(0) != null)
             for (int i = 0; i < vertices.size(); i++){                                      //destacando
                 this.graph.getVertex().get(vertices.get(i)).setColor( rbS.getColor(lista[vertices.get(i)].getDistancia() * 40)); //o caminho
-                this.graph.getVertex().get(i).setSelected(true);
+                this.graph.getVertex().get(vertices.get(i)).setSelected(true);              //                
             }
         
         this.view.cleanImage();
