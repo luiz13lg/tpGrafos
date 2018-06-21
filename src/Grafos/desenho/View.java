@@ -56,6 +56,7 @@ public class View extends javax.swing.JFrame {
     /** Creates new form View */
     public View() {
         this.view = new ViewPanel();
+        setTitle("Trabalho Prático II");
         //this.view.setGraph(this.graph);
         initComponents();
     }
@@ -88,7 +89,13 @@ public class View extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("Trabalho"); // NOI18N
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         CompB.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         CompB.setForeground(new java.awt.Color(255, 0, 51));
@@ -580,6 +587,72 @@ public class View extends javax.swing.JFrame {
         this.view.cleanImage();
         this.view.repaint();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        JFileChooser fc = new JFileChooser();                           //escolhendo o arquivo
+        int result = fc.showOpenDialog(getParent());                    //
+        String arquivo = fc.getSelectedFile().getAbsolutePath();        //
+
+        BufferedReader br = null, br1 = null, br2 = null;   //arquivo
+        try {                                                       //carregando arquivos
+            br = new BufferedReader(new FileReader(arquivo));       //matriz
+            br1 = new BufferedReader(new FileReader(arquivo));      //lista
+            br2 = new BufferedReader(new FileReader(arquivo));      //desenho
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (result == javax.swing.JFileChooser.APPROVE_OPTION) {
+            matriz.inicia(br);                              //iniciando grafo em modo matriz
+            listaAdjacencia.iniciaListaAdjacencia(br1);     //iniciando grafo em modo lista adjacencia
+            
+            grafoMatriz = matriz.getMatriz();
+            lista = listaAdjacencia.getListaAdj();
+            
+            try {
+                grafoDigrafo = Integer.parseInt(br2.readLine());
+                
+                nVert =  Integer.parseInt(br2.readLine());
+
+                this.graph = new Graph(nVert); ///desenho
+
+                //leitura das arestas
+                String line;
+                while ((line = br2.readLine()) != null && line.trim().length() > 0) {
+                    StringTokenizer t1 = new StringTokenizer(line, " ");
+
+                    int vIni = Integer.parseInt(t1.nextToken().trim());     //vertice Inicial
+                    int vFim = Integer.parseInt(t1.nextToken().trim());     //vertice Final
+                    int vPeso = Integer.parseInt(t1.nextToken().trim());    //peso do verticeA
+                    
+                    Vertex vS = this.graph.getVertex().get(vIni);
+                    Vertex vT = this.graph.getVertex().get(vFim);           
+//                    this.grafo.addAresta(vIni, vFim); //estrutura de dados
+                    Edge e = new Edge(vS, vT, vPeso); //desenho
+                    
+                    if(grafoDigrafo == 0)       //desenhando setas ou não
+                        e.setDirected(false);   //
+                    
+                    this.graph.addEdge(e);    //desenho
+                }
+                this.view.setGraph(graph);
+            } catch (IOException ex) {
+                Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                //fechar o arquivo
+                if (br != null) {
+                    try {
+                        br.close();
+                        br1.close();
+                        br2.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     private void criarTimes(){
             Campeao[] TeamA = new Campeao[5];
