@@ -95,8 +95,7 @@ public class View extends javax.swing.JFrame {
         CompA.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         CompA.setForeground(new java.awt.Color(51, 102, 255));
 
-        Resultado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Resultado.setForeground(new java.awt.Color(102, 255, 102));
+        Resultado.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
 
         opcoes_Menu.setText("Opções");
 
@@ -188,13 +187,13 @@ public class View extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(CompA, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(CompB, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
-                .addComponent(Resultado, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addComponent(CompA, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(CompB, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Resultado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +246,7 @@ public class View extends javax.swing.JFrame {
 
                     int vIni = Integer.parseInt(t1.nextToken().trim());     //vertice Inicial
                     int vFim = Integer.parseInt(t1.nextToken().trim());     //vertice Final
-                    int vPeso = Integer.parseInt(t1.nextToken().trim());    //peso do vertice
+                    int vPeso = Integer.parseInt(t1.nextToken().trim());    //peso do verticeA
                     
                     Vertex vS = this.graph.getVertex().get(vIni);
                     Vertex vT = this.graph.getVertex().get(vFim);           
@@ -476,7 +475,7 @@ public class View extends javax.swing.JFrame {
 
                 int vIni = Integer.parseInt(t1.nextToken().trim());     //vertice Inicial
                 int vFim = Integer.parseInt(t1.nextToken().trim());     //vertice Final
-                int vPeso = Integer.parseInt(t1.nextToken().trim());    //peso do vertice
+                int vPeso = Integer.parseInt(t1.nextToken().trim());    //peso do verticeA
 
                 Vertex vS = this.graph.getVertex().get(vIni);
                 Vertex vT = this.graph.getVertex().get(vFim);           
@@ -506,11 +505,40 @@ public class View extends javax.swing.JFrame {
         
         criarTimes();
         String compTeamA = analisarComp(comp.getTeamA());
-        String compTeamB = analisarComp(comp.getTeamA());
+        String compTeamB = analisarComp(comp.getTeamB());
         CompA.setText("Time A "+compTeamA);
         CompB.setText("Time B "+compTeamB);
         
+        BFS bfs = new BFS();
+        int verticeA = 0;
+        int verticeB = 0;
         
+        if(compTeamA.equals("dive"))verticeA = 0;
+        if(compTeamA.equals("aoe"))verticeA = 1;
+        if(compTeamA.equals("poke"))verticeA = 2;
+        if(compTeamA.equals("split"))verticeA = 3;
+        if(compTeamA.equals("peel"))verticeA = 4;
+        
+        if(compTeamB.equals("dive"))verticeB = 0;
+        if(compTeamB.equals("aoe"))verticeB = 1;
+        if(compTeamB.equals("poke"))verticeB = 2;
+        if(compTeamB.equals("split"))verticeB = 3;
+        if(compTeamB.equals("peel"))verticeB = 4;
+        
+        
+        
+        bfs.BFS(lista,lista[verticeA]);
+//        System.out.println(lista[verticeB].getDistancia());
+        if(lista[verticeB].getDistancia() == 1)Resultado.setText("Equipe A tem vantagem em relação a Equipe B");
+        else{
+           bfs.BFS(lista,lista[verticeB]);
+//            System.out.println(lista[verticeA].getDistancia());
+            if(lista[verticeA].getDistancia() == 1)Resultado.setText("Equipe B tem vantagem em relação a Equipe A"); 
+            else{
+                Resultado.setText("As equipes não possuem relação direta, boa sorte invocador");
+            }
+        }
+ 
        //analisar no grafo
         
 //        Aplicacao aplicacao = new Aplicacao();
@@ -587,7 +615,7 @@ public class View extends javax.swing.JFrame {
     }
     
     private String analisarComp(Campeao[] time){
-        int[] funcoes = new int[5];
+        int[] funcoes = new int[time.length];
         int maior = 0;
         int composicao = 0;
         for(int i=0;i<funcoes.length;i++){
