@@ -15,6 +15,7 @@ import Grafos.MatrizAdjacencia;
 import Grafos.Vertice;
 import Grafos.aplicacao.Campeao;
 import Grafos.aplicacao.Composicao;
+import Grafos.classe.AGMKruskal;
 import Grafos.classe.Coloracao;
 import Grafos.classe.DFS;
 import Grafos.classe.BFS;
@@ -276,8 +277,8 @@ public class View extends javax.swing.JFrame {
             grafoMatriz = matriz.getMatriz();
             lista = listaAdjacencia.getListaAdj();
             
-            Kruskal ks = new Kruskal(lista);
-            ks.AGM_Kruskal();
+            AGMKruskal ks = new AGMKruskal(lista);
+            ks.Results();
             
             try {
                 grafoDigrafo = Integer.parseInt(br2.readLine());

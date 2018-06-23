@@ -6,6 +6,7 @@
 package Grafos.classe;
 
 import Grafos.Vertice;
+import static java.lang.Integer.MAX_VALUE;
 import java.util.ArrayList;
 
 /**
@@ -34,6 +35,7 @@ public class Kruskal{
     public void inicializaVetor(Vertice [] vetor){
         for(int i = 0; i < vetor.length; i++){
             vetor[i] = new Vertice();
+            vetor[i].setPeso(MAX_VALUE);
         }
     }
     
