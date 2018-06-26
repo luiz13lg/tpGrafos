@@ -76,8 +76,10 @@ public class CaminhoMinimoDijkstra {
             
             ArrayList<String> lista = vertices[u].getAdjacencia();
             for(int i=0;i<lista.size();i++){
-                int k = Integer.parseInt(String.valueOf(lista.get(i).charAt(0)));
-                    relaxa(u,k,Integer.parseInt(String.valueOf(lista.get(i).charAt(2))),d,pai);
+                String[] msg = lista.get(i).split(" ");
+ 
+                int v = Integer.parseInt(msg[0]);
+                    relaxa(u,v,Integer.parseInt(msg[1]),d,pai);
             }
         }
         this.distancia = d;
