@@ -797,7 +797,7 @@ public class View extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         CaminhoMinimoDijkstra caminho = new CaminhoMinimoDijkstra();
-        int raiz = Integer.valueOf(JOptionPane.showInputDialog("Insira uma raiz"));
+        int raiz = 0;//Integer.valueOf(JOptionPane.showInputDialog("Insira uma raiz"));
         int[] pai;
         int[] distancia;
         RainbowScale rbS = new RainbowScale();
