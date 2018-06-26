@@ -796,6 +796,7 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        //restaurarActionPerformed(evt);
         CaminhoMinimoDijkstra caminho = new CaminhoMinimoDijkstra();
         int raiz = Integer.valueOf(JOptionPane.showInputDialog("Insira uma raiz"));
         int[] pai;
@@ -803,7 +804,9 @@ public class View extends javax.swing.JFrame {
         caminho.caminhoMinimo(lista,raiz);
         pai = caminho.getPai();
 
-
+        for(int i=0;i<graph.getEdges().size();i++){
+            this.graph.getEdges().get(i).setSelected(false);
+        }
         for(int i=0;i<pai.length;i++){
             int y = i;
             int x = pai[i];
