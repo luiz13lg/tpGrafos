@@ -88,6 +88,7 @@ public class View extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         bfs = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         restaurar = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
@@ -155,7 +156,7 @@ public class View extends javax.swing.JFrame {
         });
         algoritmos_Menu.add(jMenuItem2);
 
-        jMenuItem3.setText("Transposto");
+        jMenuItem3.setText("Transposição");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -163,7 +164,7 @@ public class View extends javax.swing.JFrame {
         });
         algoritmos_Menu.add(jMenuItem3);
 
-        jMenuItem4.setText("Componentes f-conexos");
+        jMenuItem4.setText("Conectividade");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -186,6 +187,9 @@ public class View extends javax.swing.JFrame {
             }
         });
         algoritmos_Menu.add(jMenuItem5);
+
+        jMenuItem6.setText("Caminho Minimo");
+        algoritmos_Menu.add(jMenuItem6);
         algoritmos_Menu.add(jSeparator1);
 
         restaurar.setText("Restaurar Grafo");
@@ -1057,6 +1061,7 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu opcoes_Menu;
