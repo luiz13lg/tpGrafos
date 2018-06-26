@@ -797,26 +797,24 @@ public class View extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         CaminhoMinimoDijkstra caminho = new CaminhoMinimoDijkstra();
-        int raiz = 0;//Integer.valueOf(JOptionPane.showInputDialog("Insira uma raiz"));
+        int raiz = Integer.valueOf(JOptionPane.showInputDialog("Insira uma raiz"));
         int[] pai;
-        int[] distancia;
-        RainbowScale rbS = new RainbowScale();
         
         caminho.caminhoMinimo(lista,raiz);
         pai = caminho.getPai();
-//        distancia = caminho.getDistancia();
+
 
         for(int i=0;i<pai.length;i++){
             int y = i;
             int x = pai[i];
             if(pai[i]!=-1){
-                
-            }
-            for(int j=0;j<this.graph.getEdges().size();j++){
-                if( x == this.graph.getEdges().get(j).getSource().getID() && y == this.graph.getEdges().get(j).getTarget().getID()){
-                    this.graph.getEdges().get(j).setSelected(true);
+                for(int j=0;j<this.graph.getEdges().size();j++){
+                    if( x == this.graph.getEdges().get(j).getSource().getID() && y == this.graph.getEdges().get(j).getTarget().getID()){
+                        this.graph.getEdges().get(j).setSelected(true);
+                    }
                 }
             }
+            
         }
         
         this.view.cleanImage();
