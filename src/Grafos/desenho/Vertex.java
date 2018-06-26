@@ -5,6 +5,9 @@
 package Grafos.desenho;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Point;
 
 /**
  *
@@ -34,7 +37,7 @@ public class Vertex {
             g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 0.2f));
             g2.setStroke(new java.awt.BasicStroke(1.5f));
         }
-
+        
         g2.setColor(this.color);        
         g2.fillOval(((int) this.x) - this.getRay(), ((int) this.y)
                 - this.getRay(), this.getRay() * 2, this.getRay() * 2);
@@ -42,9 +45,12 @@ public class Vertex {
         g2.setColor(Color.BLACK);
         g2.drawOval(((int) this.x) - this.getRay(), ((int) this.y)
                 - this.getRay(), this.getRay() * 2, this.getRay() * 2);
-
-        g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
-
+        
+        drawText(g2, new Point((int) x, (int) y),   //peso
+        new Point((int) x, (int) y),                //
+        String.valueOf(ID), 70); 
+        
+        g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));      
     }
 
     public float getX() {
@@ -86,4 +92,13 @@ public class Vertex {
     public void setSelected(Boolean flag) {
         this.selected = flag;
     }
+    
+    ///////////////////////////////////////////////
+    private void drawText(Graphics2D g2, Point s, Point t, String text, int deslocamento) {
+        g2.setFont(new Font("Verdana", Font.BOLD, 12));
+        
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x - 4, y + 4);
+    }
+    //////////////////////////////////////////////
 }

@@ -802,8 +802,7 @@ public class View extends javax.swing.JFrame {
         
         caminho.caminhoMinimo(lista,raiz);
         pai = caminho.getPai();
-
-
+    
         for(int i=0;i<pai.length;i++){
             int y = i;
             int x = pai[i];
@@ -816,7 +815,6 @@ public class View extends javax.swing.JFrame {
             }
             
         }
-        
         this.view.cleanImage();
         this.view.repaint();
     }//GEN-LAST:event_jMenuItem6ActionPerformed
