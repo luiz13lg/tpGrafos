@@ -755,7 +755,7 @@ public class View extends javax.swing.JFrame {
         
         vertices = bfs.BFSdescobrimento(lista, lista[vert1]);
         
-        int coresStep = 255/vertices.size();
+//        int coresStep = 255/vertices.size();
 //        for(int i = 0; i < nVert; i++)
 //            System.out.println("Vertice: " + vertices.get(i) + "-> " + lista[vertices.get(i)].getDistancia());
         
