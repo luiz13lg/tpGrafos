@@ -19,6 +19,7 @@ import Grafos.classe.AGMKruskal;
 import Grafos.classe.Coloracao;
 import Grafos.classe.DFS;
 import Grafos.classe.BFS;
+import Grafos.classe.CaminhoMinimoDijkstra;
 import Grafos.classe.Kruskal;
 import Grafos.desenho.color.GrayScale;
 import Grafos.desenho.color.RainbowScale;
@@ -189,6 +190,11 @@ public class View extends javax.swing.JFrame {
         algoritmos_Menu.add(jMenuItem5);
 
         jMenuItem6.setText("Caminho Minimo");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         algoritmos_Menu.add(jMenuItem6);
         algoritmos_Menu.add(jSeparator1);
 
@@ -788,6 +794,34 @@ public class View extends javax.swing.JFrame {
         Resultado.setText(msg);  
         }else JOptionPane.showMessageDialog(null,"O algoritmo é reestrito a digrafos");
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        CaminhoMinimoDijkstra caminho = new CaminhoMinimoDijkstra();
+        int raiz = Integer.valueOf(JOptionPane.showInputDialog("Insira uma raiz"));
+        int[] pai;
+        int[] distancia;
+        RainbowScale rbS = new RainbowScale();
+        
+        caminho.caminhoMinimo(lista,raiz);
+        pai = caminho.getPai();
+//        distancia = caminho.getDistancia();
+
+        for(int i=0;i<pai.length;i++){
+            int y = i;
+            int x = pai[i];
+            if(pai[i]!=-1){
+                
+            }
+            for(int j=0;j<this.graph.getEdges().size();j++){
+                if( x == this.graph.getEdges().get(j).getSource().getID() && y == this.graph.getEdges().get(j).getTarget().getID()){
+                    this.graph.getEdges().get(j).setSelected(true);
+                }
+            }
+        }
+        
+        this.view.cleanImage();
+        this.view.repaint();
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void criarTimes(){
             Campeao[] TeamA = new Campeao[5];

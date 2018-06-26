@@ -43,6 +43,12 @@ public class Graph {
         this.edges.add(e);
     }
 
+    public ArrayList<Edge> getEdges() {
+        return edges;
+    }
+
+    
+    
     public void computeCircledPosition(int ray){
         int nVert = this.vertex.size();
         int step = 360 / nVert;

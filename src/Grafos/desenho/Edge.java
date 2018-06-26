@@ -28,6 +28,16 @@ public class Edge {
         this.peso = peso;
     }
 
+    public Vertex getSource() {
+        return source;
+    }
+
+    public Vertex getTarget() {
+        return target;
+    }
+
+    
+    
     public void draw(java.awt.Graphics2D g2) {
         //Combines the color of the two vertex to paint the edge
 
